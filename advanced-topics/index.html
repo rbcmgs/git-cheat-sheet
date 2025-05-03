@@ -1,0 +1,3391 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A comprehensive Git reference guide">
+      
+      
+        <meta name="author" content="Brandon Cummings">
+      
+      
+      
+        <link rel="prev" href="../troubleshooting/">
+      
+      
+        <link rel="next" href="../development-workflows/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>Advanced Topics - Git Cheat Sheet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#advanced-git-techniques" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Git Cheat Sheet" class="md-header__button md-logo" aria-label="Git Cheat Sheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Git Cheat Sheet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Advanced Topics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rbcmgs/git-cheat-sheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rbcmgs/git-cheat-sheet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../setup-and-init/" class="md-tabs__link">
+          
+  
+  
+  Git Fundamentals
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../branching/" class="md-tabs__link">
+          
+  
+  
+  Branch Management
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../remote-operations/" class="md-tabs__link">
+          
+  
+  
+  Remote Collaboration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../tags-releases/" class="md-tabs__link">
+          
+  
+  
+  Project History & Versions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../config-aliases/" class="md-tabs__link">
+          
+  
+  
+  Customization & Troubleshooting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  Advanced Usage
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../resources/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Resources
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Git Cheat Sheet" class="md-nav__button md-logo" aria-label="Git Cheat Sheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Git Cheat Sheet
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rbcmgs/git-cheat-sheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rbcmgs/git-cheat-sheet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Git Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Git Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-and-init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup and Init
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Branch Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Branch Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../branching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Branching
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../merging-rebasing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Merging & Rebasing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Remote Collaboration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Remote Collaboration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../remote-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remote Operations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stash-clean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Stash & Clean
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Project History & Versions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Project History & Versions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags-releases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tags & Releases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logs-diffs-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logs, Diffs & History
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Customization & Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Customization & Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config-aliases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Config & Aliases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced Usage
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Usage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Advanced Topics
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Topics
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-hooks-and-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Git Hooks and Automation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Git Hooks and Automation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-side-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client-side Hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-side-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server-side Hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-custom-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Custom Hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharing-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sharing Hooks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Git Internals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Git Internals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#object-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-git-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Git Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packfiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packfiles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspecting-git-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspecting Git Objects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submodules-and-subtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Submodules and Subtrees
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 Submodules and Subtrees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#working-with-submodules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Submodules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-subtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Subtrees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-between-submodules-and-subtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing Between Submodules and Subtrees
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bisect-and-blame" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⏱️ Bisect and Blame
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ Bisect and Blame">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-git-bisect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Git Bisect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-git-blame" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Git Blame
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-annotation-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Annotation Techniques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-history-rewriting" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✏️ Advanced History Rewriting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✏️ Advanced History Rewriting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactive-rebase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interactive Rebase
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter-branch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-filter-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Filter-repo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rewriting-author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rewriting Author Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patches-and-bundles" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Patches and Bundles
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Patches and Bundles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-and-applying-patches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating and Applying Patches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-git-bundles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Git Bundles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-based-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email-based Workflows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-searching-and-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔎 Advanced Searching and Filtering
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔎 Advanced Searching and Filtering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advanced-log-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Log Filtering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Grep
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#searching-commit-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      Searching Commit Content
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pickaxe-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pickaxe Search
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-attributes-and-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Git Attributes and Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Git Attributes and Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyword-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keyword Expansion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-ignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export-ignore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Merge Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diff-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diff Drivers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-monorepos" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏗️ Working with Monorepos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Working with Monorepos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sparse-checkouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sparse Checkouts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partial-clones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Partial Clones
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-extensions-for-large-repos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Extensions for Large Repos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-git-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Custom Git Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Custom Git Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-custom-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Custom Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-custom-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful Custom Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extending Git
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-branch-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔀 Advanced Branch Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔀 Advanced Branch Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orphan-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Orphan Branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worktrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Worktrees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference Specifications
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespaces
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Performance Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repository-maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repository Maintenance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shallow-clones-and-sparse-checkouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shallow Clones and Sparse Checkouts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimizing-git-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimizing Git Config
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      💻 Command Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Related Topics
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development Workflows
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github-actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub Actions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-hooks-and-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Git Hooks and Automation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Git Hooks and Automation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-side-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Client-side Hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-side-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server-side Hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-custom-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Custom Hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharing-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sharing Hooks
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Git Internals
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Git Internals">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#object-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Object Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-git-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Git Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packfiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Packfiles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspecting-git-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspecting Git Objects
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submodules-and-subtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      📦 Submodules and Subtrees
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📦 Submodules and Subtrees">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#working-with-submodules" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Submodules
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-subtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Subtrees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-between-submodules-and-subtrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing Between Submodules and Subtrees
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bisect-and-blame" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⏱️ Bisect and Blame
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⏱️ Bisect and Blame">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-git-bisect" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Git Bisect
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-git-blame" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Git Blame
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-annotation-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Annotation Techniques
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-history-rewriting" class="md-nav__link">
+    <span class="md-ellipsis">
+      ✏️ Advanced History Rewriting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="✏️ Advanced History Rewriting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interactive-rebase" class="md-nav__link">
+    <span class="md-ellipsis">
+      Interactive Rebase
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Filter-branch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-filter-repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Filter-repo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rewriting-author-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rewriting Author Information
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#patches-and-bundles" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Patches and Bundles
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Patches and Bundles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-and-applying-patches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating and Applying Patches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#working-with-git-bundles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Working with Git Bundles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-based-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email-based Workflows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-searching-and-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔎 Advanced Searching and Filtering
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔎 Advanced Searching and Filtering">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advanced-log-filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Log Filtering
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-grep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Grep
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#searching-commit-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      Searching Commit Content
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pickaxe-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pickaxe Search
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-attributes-and-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Git Attributes and Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Git Attributes and Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting Attributes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keyword-expansion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keyword Expansion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-ignore" class="md-nav__link">
+    <span class="md-ellipsis">
+      Export-ignore
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Merge Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#diff-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Diff Drivers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-monorepos" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏗️ Working with Monorepos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Working with Monorepos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sparse-checkouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sparse Checkouts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partial-clones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Partial Clones
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-extensions-for-large-repos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Extensions for Large Repos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-git-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Custom Git Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🛠️ Custom Git Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-custom-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Custom Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#useful-custom-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Useful Custom Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extending-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Extending Git
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-branch-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔀 Advanced Branch Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔀 Advanced Branch Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#orphan-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Orphan Branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#worktrees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Worktrees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference-specifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference Specifications
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespaces
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Performance Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#repository-maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Repository Maintenance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shallow-clones-and-sparse-checkouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shallow Clones and Sparse Checkouts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimizing-git-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimizing Git Config
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      💻 Command Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Related Topics
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="advanced-git-techniques">🚀 Advanced Git Techniques<a class="headerlink" href="#advanced-git-techniques" title="Permanent link">&para;</a></h1>
+<p><em>Elevate your Git mastery with powerful advanced techniques that enhance productivity and provide deeper insight into your repositories.</em></p>
+<hr />
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#-advanced-git-techniques">🚀 Advanced Git Techniques</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#-git-hooks-and-automation">💡 Git Hooks and Automation</a><ul>
+<li><a href="#client-side-hooks">Client-side Hooks</a></li>
+<li><a href="#server-side-hooks">Server-side Hooks</a></li>
+<li><a href="#creating-custom-hooks">Creating Custom Hooks</a></li>
+<li><a href="#sharing-hooks">Sharing Hooks</a></li>
+</ul>
+</li>
+<li><a href="#-git-internals">🔍 Git Internals</a><ul>
+<li><a href="#object-types">Object Types</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#the-git-database">The Git Database</a></li>
+<li><a href="#packfiles">Packfiles</a></li>
+<li><a href="#inspecting-git-objects">Inspecting Git Objects</a></li>
+</ul>
+</li>
+<li><a href="#-submodules-and-subtrees">📦 Submodules and Subtrees</a><ul>
+<li><a href="#working-with-submodules">Working with Submodules</a></li>
+<li><a href="#working-with-subtrees">Working with Subtrees</a></li>
+<li><a href="#choosing-between-submodules-and-subtrees">Choosing Between Submodules and Subtrees</a></li>
+</ul>
+</li>
+<li><a href="#️-bisect-and-blame">⏱️ Bisect and Blame</a><ul>
+<li><a href="#using-git-bisect">Using Git Bisect</a></li>
+<li><a href="#using-git-blame">Using Git Blame</a></li>
+<li><a href="#advanced-annotation-techniques">Advanced Annotation Techniques</a></li>
+</ul>
+</li>
+<li><a href="#️-advanced-history-rewriting">✏️ Advanced History Rewriting</a><ul>
+<li><a href="#interactive-rebase">Interactive Rebase</a></li>
+<li><a href="#filter-branch">Filter-branch</a></li>
+<li><a href="#git-filter-repo">Git Filter-repo</a></li>
+<li><a href="#rewriting-author-information">Rewriting Author Information</a></li>
+</ul>
+</li>
+<li><a href="#-patches-and-bundles">🔄 Patches and Bundles</a><ul>
+<li><a href="#creating-and-applying-patches">Creating and Applying Patches</a></li>
+<li><a href="#working-with-git-bundles">Working with Git Bundles</a></li>
+<li><a href="#email-based-workflows">Email-based Workflows</a></li>
+</ul>
+</li>
+<li><a href="#-advanced-searching-and-filtering">🔎 Advanced Searching and Filtering</a><ul>
+<li><a href="#advanced-log-filtering">Advanced Log Filtering</a></li>
+<li><a href="#git-grep">Git Grep</a></li>
+<li><a href="#searching-commit-content">Searching Commit Content</a></li>
+<li><a href="#pickaxe-search">Pickaxe Search</a></li>
+</ul>
+</li>
+<li><a href="#-git-attributes-and-features">📊 Git Attributes and Features</a><ul>
+<li><a href="#setting-attributes">Setting Attributes</a></li>
+<li><a href="#keyword-expansion">Keyword Expansion</a></li>
+<li><a href="#export-ignore">Export-ignore</a></li>
+<li><a href="#merge-strategies">Merge Strategies</a></li>
+<li><a href="#diff-drivers">Diff Drivers</a></li>
+</ul>
+</li>
+<li><a href="#️-working-with-monorepos">🏗️ Working with Monorepos</a><ul>
+<li><a href="#sparse-checkouts">Sparse Checkouts</a></li>
+<li><a href="#partial-clones">Partial Clones</a></li>
+<li><a href="#git-extensions-for-large-repos">Git Extensions for Large Repos</a></li>
+</ul>
+</li>
+<li><a href="#️-custom-git-commands">🛠️ Custom Git Commands</a><ul>
+<li><a href="#creating-custom-commands">Creating Custom Commands</a></li>
+<li><a href="#useful-custom-commands">Useful Custom Commands</a></li>
+<li><a href="#extending-git">Extending Git</a></li>
+</ul>
+</li>
+<li><a href="#-advanced-branch-management">🔀 Advanced Branch Management</a><ul>
+<li><a href="#orphan-branches">Orphan Branches</a></li>
+<li><a href="#worktrees">Worktrees</a></li>
+<li><a href="#reference-specifications">Reference Specifications</a></li>
+<li><a href="#namespaces">Namespaces</a></li>
+</ul>
+</li>
+<li><a href="#-performance-optimization">🔧 Performance Optimization</a><ul>
+<li><a href="#repository-maintenance">Repository Maintenance</a></li>
+<li><a href="#shallow-clones-and-sparse-checkouts">Shallow Clones and Sparse Checkouts</a></li>
+<li><a href="#optimizing-git-config">Optimizing Git Config</a></li>
+</ul>
+</li>
+<li><a href="#-command-summary">💻 Command Summary</a></li>
+<li><a href="#-related-topics">🔗 Related Topics</a></li>
+</ul>
+<hr />
+<h2 id="git-hooks-and-automation">💡 Git Hooks and Automation<a class="headerlink" href="#git-hooks-and-automation" title="Permanent link">&para;</a></h2>
+<p>Git hooks are scripts that automatically run before or after specific Git events like commit, push, or merge.</p>
+<h3 id="client-side-hooks">Client-side Hooks<a class="headerlink" href="#client-side-hooks" title="Permanent link">&para;</a></h3>
+<p>Client-side hooks run on your local machine:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Common client-side hooks and locations (.git/hooks/)</span>
+pre-commit<span class="w">       </span><span class="c1"># Run before a commit is finalized</span>
+prepare-commit-msg<span class="w">  </span><span class="c1"># Edit default commit message</span>
+commit-msg<span class="w">      </span><span class="c1"># Validate commit messages</span>
+post-commit<span class="w">     </span><span class="c1"># Run after a commit is completed</span>
+pre-rebase<span class="w">      </span><span class="c1"># Run before rebasing</span>
+post-checkout<span class="w">   </span><span class="c1"># Run after checkout or switch</span>
+pre-push<span class="w">        </span><span class="c1"># Run before pushing changes</span>
+</code></pre></div>
+<p>Example <code>pre-commit</code> hook to check for trailing whitespace:</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<span class="c1"># .git/hooks/pre-commit</span>
+
+git<span class="w"> </span>diff<span class="w"> </span>--cached<span class="w"> </span>--name-only<span class="w"> </span>--diff-filter<span class="o">=</span>ACM<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>file<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="c1"># Check for trailing whitespace</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s1">&#39;[[:blank:]]$&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Error: Trailing whitespace found in </span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="w">        </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="k">done</span>
+</code></pre></div>
+<h3 id="server-side-hooks">Server-side Hooks<a class="headerlink" href="#server-side-hooks" title="Permanent link">&para;</a></h3>
+<p>Server-side hooks run on remote repositories:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Common server-side hooks (.git/hooks/ on server)</span>
+pre-receive<span class="w">       </span><span class="c1"># Run before refs are updated</span>
+update<span class="w">            </span><span class="c1"># Per-branch security check</span>
+post-receive<span class="w">      </span><span class="c1"># Run after entire push completes</span>
+</code></pre></div>
+<p>Example <code>post-receive</code> hook to trigger CI/CD:</p>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># .git/hooks/post-receive</span>
+
+<span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>oldrev<span class="w"> </span>newrev<span class="w"> </span>ref
+<span class="k">do</span>
+<span class="w">    </span><span class="nv">branch</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$ref</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="s1">&#39;/&#39;</span><span class="w"> </span>-f3<span class="k">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$branch</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;main&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Deploying main branch...&quot;</span>
+<span class="w">        </span><span class="c1"># Deployment script logic here</span>
+<span class="w">        </span>/path/to/deploy_script.sh
+<span class="w">    </span><span class="k">fi</span>
+<span class="k">done</span>
+</code></pre></div>
+<h3 id="creating-custom-hooks">Creating Custom Hooks<a class="headerlink" href="#creating-custom-hooks" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Create a script in <code>.git/hooks/</code> with the appropriate name</li>
+<li>Make it executable</li>
+<li>Write the script in any language (bash, Python, Ruby, etc.)</li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create and make executable</span>
+touch<span class="w"> </span>.git/hooks/pre-commit
+chmod<span class="w"> </span>+x<span class="w"> </span>.git/hooks/pre-commit
+</code></pre></div>
+<h3 id="sharing-hooks">Sharing Hooks<a class="headerlink" href="#sharing-hooks" title="Permanent link">&para;</a></h3>
+<p>Hooks aren't cloned with repositories, but can be shared using:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set a shared hooks directory</span>
+git<span class="w"> </span>config<span class="w"> </span>core.hooksPath<span class="w"> </span><span class="s1">&#39;/path/to/shared/hooks&#39;</span>
+
+<span class="c1"># Initialize templates with hooks</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>init.templateDir<span class="w"> </span><span class="s1">&#39;~/.git-templates&#39;</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>~/.git-templates/hooks
+<span class="c1"># Add your hooks to this directory</span>
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Consider using tools like <a href="https://github.com/typicode/husky">Husky</a> or <a href="https://pre-commit.com/">pre-commit</a> for more manageable Git hooks.</p>
+</blockquote>
+<hr />
+<h2 id="git-internals">🔍 Git Internals<a class="headerlink" href="#git-internals" title="Permanent link">&para;</a></h2>
+<p>Understanding Git's internal data model helps you leverage its full power.</p>
+<h3 id="object-types">Object Types<a class="headerlink" href="#object-types" title="Permanent link">&para;</a></h3>
+<p>Git stores four types of objects:</p>
+<div class="highlight"><pre><span></span><code>┌─────────┬───────────────────────────┐
+│ Object  │ Description               │
+├─────────┼───────────────────────────┤
+│ blob    │ File content              │
+│ tree    │ Directory listing         │
+│ commit  │ Commit metadata and tree  │
+│ tag     │ Named reference to object │
+└─────────┴───────────────────────────┘
+</code></pre></div>
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
+<p>References are pointers to commits:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Examine references</span>
+git<span class="w"> </span>show-ref<span class="w">           </span><span class="c1"># Show all references</span>
+git<span class="w"> </span>symbolic-ref<span class="w"> </span>HEAD<span class="w">  </span><span class="c1"># Show what HEAD points to</span>
+</code></pre></div>
+<p>Core references:</p>
+<ul>
+<li>HEAD: Current active reference</li>
+<li>refs/heads/: Local branches</li>
+<li>refs/remotes/: Remote branches</li>
+<li>refs/tags/: Tags</li>
+</ul>
+<h3 id="the-git-database">The Git Database<a class="headerlink" href="#the-git-database" title="Permanent link">&para;</a></h3>
+<p>Git stores objects in <code>.git/objects</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all objects</span>
+find<span class="w"> </span>.git/objects<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
+
+<span class="c1"># Create and view raw objects</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;test content&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>git<span class="w"> </span>hash-object<span class="w"> </span>-w<span class="w"> </span>--stdin
+<span class="c1"># Returns a hash like: a8a940627d132695a9769df4f5c48254c6b310f5</span>
+
+<span class="c1"># View the content of an object</span>
+git<span class="w"> </span>cat-file<span class="w"> </span>-p<span class="w"> </span>a8a940627d132695a9769df4f5c48254c6b310f5
+</code></pre></div>
+<h3 id="packfiles">Packfiles<a class="headerlink" href="#packfiles" title="Permanent link">&para;</a></h3>
+<p>Git optimizes storage by packing objects:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Force Git to create a packfile</span>
+git<span class="w"> </span>gc
+
+<span class="c1"># List packed objects</span>
+git<span class="w"> </span>verify-pack<span class="w"> </span>-v<span class="w"> </span>.git/objects/pack/pack-*.idx
+
+<span class="c1"># See where an object is stored</span>
+git<span class="w"> </span>rev-list<span class="w"> </span>--objects<span class="w"> </span>--all<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>a8a940
+</code></pre></div>
+<h3 id="inspecting-git-objects">Inspecting Git Objects<a class="headerlink" href="#inspecting-git-objects" title="Permanent link">&para;</a></h3>
+<p>Examine Git's internal data:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Display commits with their trees</span>
+git<span class="w"> </span>log<span class="w"> </span>--pretty<span class="o">=</span>raw
+
+<span class="c1"># Display a specific tree</span>
+git<span class="w"> </span>ls-tree<span class="w"> </span>HEAD
+
+<span class="c1"># Show a specific commit&#39;s metadata</span>
+git<span class="w"> </span>cat-file<span class="w"> </span>-p<span class="w"> </span>HEAD
+
+<span class="c1"># Display a specific file&#39;s blob object</span>
+git<span class="w"> </span>hash-object<span class="w"> </span>path/to/file
+git<span class="w"> </span>cat-file<span class="w"> </span>-p<span class="w"> </span><span class="k">$(</span>git<span class="w"> </span>hash-object<span class="w"> </span>path/to/file<span class="k">)</span>
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Understanding Git's object model helps with advanced operations like history rewriting and recovery.</p>
+</blockquote>
+<hr />
+<h2 id="submodules-and-subtrees">📦 Submodules and Subtrees<a class="headerlink" href="#submodules-and-subtrees" title="Permanent link">&para;</a></h2>
+<p>Manage external dependencies within your Git repository.</p>
+<h3 id="working-with-submodules">Working with Submodules<a class="headerlink" href="#working-with-submodules" title="Permanent link">&para;</a></h3>
+<p>Submodules are repositories nested within a repository:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add a submodule</span>
+git<span class="w"> </span>submodule<span class="w"> </span>add<span class="w"> </span>https://github.com/username/repo<span class="w"> </span>path/to/submodule
+
+<span class="c1"># Clone a repository with submodules</span>
+git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/username/main-repo
+
+<span class="c1"># Initialize submodules in an existing checkout</span>
+git<span class="w"> </span>submodule<span class="w"> </span>init
+git<span class="w"> </span>submodule<span class="w"> </span>update
+
+<span class="c1"># Combined update and init</span>
+git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--init<span class="w"> </span>--recursive
+
+<span class="c1"># Update all submodules to latest</span>
+git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w"> </span>--remote
+
+<span class="c1"># Execute a command in each submodule</span>
+git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span><span class="s1">&#39;git checkout main &amp;&amp; git pull&#39;</span>
+</code></pre></div>
+<h3 id="working-with-subtrees">Working with Subtrees<a class="headerlink" href="#working-with-subtrees" title="Permanent link">&para;</a></h3>
+<p>Subtrees merge external repositories into a subdirectory:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add a subtree</span>
+git<span class="w"> </span>subtree<span class="w"> </span>add<span class="w"> </span>--prefix<span class="o">=</span>path/to/subtree<span class="w"> </span>https://github.com/username/repo<span class="w"> </span>main<span class="w"> </span>--squash
+
+<span class="c1"># Update a subtree</span>
+git<span class="w"> </span>subtree<span class="w"> </span>pull<span class="w"> </span>--prefix<span class="o">=</span>path/to/subtree<span class="w"> </span>https://github.com/username/repo<span class="w"> </span>main<span class="w"> </span>--squash
+
+<span class="c1"># Push changes back to subtree remote</span>
+git<span class="w"> </span>subtree<span class="w"> </span>push<span class="w"> </span>--prefix<span class="o">=</span>path/to/subtree<span class="w"> </span>https://github.com/username/repo<span class="w"> </span>main
+</code></pre></div>
+<h3 id="choosing-between-submodules-and-subtrees">Choosing Between Submodules and Subtrees<a class="headerlink" href="#choosing-between-submodules-and-subtrees" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Submodules</th>
+<th>Subtrees</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workflow</td>
+<td>External repositories remain separate</td>
+<td>External code merged into your repo</td>
+</tr>
+<tr>
+<td>Tracking</td>
+<td>Points to a specific commit</td>
+<td>Full history can be included</td>
+</tr>
+<tr>
+<td>Updates</td>
+<td>Manual update required</td>
+<td>Can pull upstream changes</td>
+</tr>
+<tr>
+<td>Learning curve</td>
+<td>Steeper</td>
+<td>Simpler for users</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Fixed dependencies</td>
+<td>Libraries you might modify</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>⚠️ <strong>Warning</strong>: Submodules point to specific commits. If the remote repository is deleted or commits are garbage collected, you might lose access to the code.</p>
+</blockquote>
+<hr />
+<h2 id="bisect-and-blame">⏱️ Bisect and Blame<a class="headerlink" href="#bisect-and-blame" title="Permanent link">&para;</a></h2>
+<p>Find where and when specific changes were introduced.</p>
+<h3 id="using-git-bisect">Using Git Bisect<a class="headerlink" href="#using-git-bisect" title="Permanent link">&para;</a></h3>
+<p>Binary search through history to find bug-introducing commits:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Start a bisect session</span>
+git<span class="w"> </span>bisect<span class="w"> </span>start
+
+<span class="c1"># Mark the current version as bad (has the bug)</span>
+git<span class="w"> </span>bisect<span class="w"> </span>bad
+
+<span class="c1"># Mark a known good commit (no bug)</span>
+git<span class="w"> </span>bisect<span class="w"> </span>good<span class="w"> </span>v1.0
+
+<span class="c1"># Git checks out a middle commit</span>
+<span class="c1"># Test the application, then mark the commit</span>
+git<span class="w"> </span>bisect<span class="w"> </span>good<span class="w">  </span><span class="c1"># If this commit doesn&#39;t have the bug</span>
+<span class="c1"># OR</span>
+git<span class="w"> </span>bisect<span class="w"> </span>bad<span class="w">   </span><span class="c1"># If this commit has the bug</span>
+
+<span class="c1"># Continue until Git identifies the first bad commit</span>
+<span class="c1"># When done, reset to your original state</span>
+git<span class="w"> </span>bisect<span class="w"> </span>reset
+</code></pre></div>
+<p>Automate the process with a test script:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Automate the bisect process</span>
+git<span class="w"> </span>bisect<span class="w"> </span>start<span class="w"> </span>HEAD<span class="w"> </span>v1.0
+git<span class="w"> </span>bisect<span class="w"> </span>run<span class="w"> </span>./test_script.sh
+</code></pre></div>
+<h3 id="using-git-blame">Using Git Blame<a class="headerlink" href="#using-git-blame" title="Permanent link">&para;</a></h3>
+<p>Track changes to specific lines:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show who changed each line in a file</span>
+git<span class="w"> </span>blame<span class="w"> </span>path/to/file
+
+<span class="c1"># Limit to specific line range</span>
+git<span class="w"> </span>blame<span class="w"> </span>-L<span class="w"> </span><span class="m">10</span>,20<span class="w"> </span>path/to/file
+
+<span class="c1"># Ignore whitespace changes</span>
+git<span class="w"> </span>blame<span class="w"> </span>-w<span class="w"> </span>path/to/file
+
+<span class="c1"># Show the boundary commits</span>
+git<span class="w"> </span>blame<span class="w"> </span>-b<span class="w"> </span>path/to/file
+
+<span class="c1"># Move lines within a file detection</span>
+git<span class="w"> </span>blame<span class="w"> </span>-M<span class="w"> </span>path/to/file
+
+<span class="c1"># Move lines between files detection</span>
+git<span class="w"> </span>blame<span class="w"> </span>-C<span class="w"> </span>path/to/file
+</code></pre></div>
+<h3 id="advanced-annotation-techniques">Advanced Annotation Techniques<a class="headerlink" href="#advanced-annotation-techniques" title="Permanent link">&para;</a></h3>
+<p>More ways to trace changes:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Combine log and diff for deeper investigation</span>
+git<span class="w"> </span>log<span class="w"> </span>-p<span class="w"> </span>path/to/file
+
+<span class="c1"># See all commits affecting a specific line range</span>
+git<span class="w"> </span>log<span class="w"> </span>-L<span class="w"> </span><span class="m">10</span>,20:path/to/file
+
+<span class="c1"># Track a specific function&#39;s history</span>
+git<span class="w"> </span>log<span class="w"> </span>-L<span class="w"> </span>:functionName:path/to/file
+
+<span class="c1"># Find who changed a line that no longer exists</span>
+git<span class="w"> </span>log<span class="w"> </span>-S<span class="w"> </span><span class="s2">&quot;deleted text&quot;</span><span class="w"> </span>--<span class="w"> </span>path/to/file
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Combine bisect and blame when investigating complex bugs: use bisect to find when the bug was introduced, then blame to see who wrote the code.</p>
+</blockquote>
+<hr />
+<h2 id="advanced-history-rewriting">✏️ Advanced History Rewriting<a class="headerlink" href="#advanced-history-rewriting" title="Permanent link">&para;</a></h2>
+<p>Modify your Git history for cleaner commits and better project organization.</p>
+<h3 id="interactive-rebase">Interactive Rebase<a class="headerlink" href="#interactive-rebase" title="Permanent link">&para;</a></h3>
+<p>Fine-grained control over commit history:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Interactive rebase for the last 5 commits</span>
+git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>HEAD~5
+
+<span class="c1"># Interactive rebase from a specific commit</span>
+git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>7abc123^
+</code></pre></div>
+<p>Interactive rebase commands:</p>
+<ul>
+<li><code>pick</code> - Keep the commit</li>
+<li><code>reword</code> - Change commit message</li>
+<li><code>edit</code> - Pause for changes</li>
+<li><code>squash</code> - Combine with previous commit (keep both messages)</li>
+<li><code>fixup</code> - Combine with previous commit (discard message)</li>
+<li><code>drop</code> - Remove the commit</li>
+<li><code>exec</code> - Run a command after each step</li>
+</ul>
+<p>Advanced rebase options:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Automatically squash/fixup commits marked as such</span>
+git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>--autosquash<span class="w"> </span>HEAD~5
+
+<span class="c1"># Continue after resolving conflicts</span>
+git<span class="w"> </span>rebase<span class="w"> </span>--continue
+
+<span class="c1"># Skip the current commit during rebase</span>
+git<span class="w"> </span>rebase<span class="w"> </span>--skip
+
+<span class="c1"># Abort the entire rebase operation</span>
+git<span class="w"> </span>rebase<span class="w"> </span>--abort
+</code></pre></div>
+<h3 id="filter-branch">Filter-branch<a class="headerlink" href="#filter-branch" title="Permanent link">&para;</a></h3>
+<p>Rewrite large sections of history:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Remove a specific file from all commits</span>
+git<span class="w"> </span>filter-branch<span class="w"> </span>--tree-filter<span class="w"> </span><span class="s1">&#39;rm -f path/to/large-file&#39;</span><span class="w"> </span>HEAD
+
+<span class="c1"># Remove a file only from past history, not recent commits</span>
+git<span class="w"> </span>filter-branch<span class="w"> </span>--index-filter<span class="w"> </span><span class="s1">&#39;git rm --cached --ignore-unmatch path/to/file&#39;</span><span class="w"> </span>HEAD
+
+<span class="c1"># Change author info globally</span>
+git<span class="w"> </span>filter-branch<span class="w"> </span>--env-filter<span class="w"> </span><span class="s1">&#39;</span>
+<span class="s1">    if [ &quot;$GIT_AUTHOR_EMAIL&quot; = &quot;old@example.com&quot; ]; then</span>
+<span class="s1">        export GIT_AUTHOR_EMAIL=&quot;new@example.com&quot;</span>
+<span class="s1">        export GIT_AUTHOR_NAME=&quot;New Name&quot;</span>
+<span class="s1">    fi</span>
+<span class="s1">    if [ &quot;$GIT_COMMITTER_EMAIL&quot; = &quot;old@example.com&quot; ]; then</span>
+<span class="s1">        export GIT_COMMITTER_EMAIL=&quot;new@example.com&quot;</span>
+<span class="s1">        export GIT_COMMITTER_NAME=&quot;New Name&quot;</span>
+<span class="s1">    fi</span>
+<span class="s1">&#39;</span><span class="w"> </span>--tag-name-filter<span class="w"> </span>cat<span class="w"> </span>--<span class="w"> </span>--all
+</code></pre></div>
+<blockquote>
+<p>⚠️ <strong>Warning</strong>: <code>filter-branch</code> is powerful but slow. Modern Git recommends <code>git filter-repo</code> instead.</p>
+</blockquote>
+<h3 id="git-filter-repo">Git Filter-repo<a class="headerlink" href="#git-filter-repo" title="Permanent link">&para;</a></h3>
+<p>A faster, more powerful alternative to filter-branch:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># First, install git-filter-repo</span>
+
+<span class="c1"># Remove a specific file from history</span>
+git<span class="w"> </span>filter-repo<span class="w"> </span>--path<span class="w"> </span>path/to/large-file<span class="w"> </span>--invert-paths
+
+<span class="c1"># Replace email addresses</span>
+git<span class="w"> </span>filter-repo<span class="w"> </span>--email-callback<span class="w"> </span><span class="s1">&#39;return email.replace(b&quot;old@example.com&quot;, b&quot;new@example.com&quot;)&#39;</span>
+
+<span class="c1"># Set a mailmap</span>
+git<span class="w"> </span>filter-repo<span class="w"> </span>--mailmap<span class="w"> </span>../mailmap.txt
+</code></pre></div>
+<h3 id="rewriting-author-information">Rewriting Author Information<a class="headerlink" href="#rewriting-author-information" title="Permanent link">&para;</a></h3>
+<p>Change commit authorship:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Amend the last commit with new author info</span>
+git<span class="w"> </span>commit<span class="w"> </span>--amend<span class="w"> </span>--author<span class="o">=</span><span class="s2">&quot;New Author &lt;email@example.com&gt;&quot;</span>
+
+<span class="c1"># Change author info during interactive rebase</span>
+<span class="c1"># Mark a commit for edit, then:</span>
+git<span class="w"> </span>commit<span class="w"> </span>--amend<span class="w"> </span>--author<span class="o">=</span><span class="s2">&quot;New Author &lt;email@example.com&gt;&quot;</span><span class="w"> </span>--no-edit
+git<span class="w"> </span>rebase<span class="w"> </span>--continue
+
+<span class="c1"># Use git-filter-repo for bulk changes</span>
+git<span class="w"> </span>filter-repo<span class="w"> </span>--name-callback<span class="w"> </span><span class="s1">&#39;return name.replace(b&quot;Old Name&quot;, b&quot;New Name&quot;)&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>⚠️ <strong>Warning</strong>: Rewriting history changes commit IDs. Never rewrite history that's been shared with others unless you've coordinated with them.</p>
+</blockquote>
+<hr />
+<h2 id="patches-and-bundles">🔄 Patches and Bundles<a class="headerlink" href="#patches-and-bundles" title="Permanent link">&para;</a></h2>
+<p>Git provides tools for exchanging changes outside of typical remote workflows.</p>
+<h3 id="creating-and-applying-patches">Creating and Applying Patches<a class="headerlink" href="#creating-and-applying-patches" title="Permanent link">&para;</a></h3>
+<p>Share changes via patch files:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a patch from the last commit</span>
+git<span class="w"> </span>format-patch<span class="w"> </span>-1
+
+<span class="c1"># Create patches for all commits not in main</span>
+git<span class="w"> </span>format-patch<span class="w"> </span>main
+
+<span class="c1"># Create a patch series with cover letter</span>
+git<span class="w"> </span>format-patch<span class="w"> </span>-n<span class="w"> </span>master<span class="w"> </span>--cover-letter
+
+<span class="c1"># Apply a patch</span>
+git<span class="w"> </span>apply<span class="w"> </span>path/to/patch.patch<span class="w">  </span><span class="c1"># Without committing</span>
+git<span class="w"> </span>am<span class="w"> </span>path/to/patch.patch<span class="w">     </span><span class="c1"># Apply and create commit</span>
+
+<span class="c1"># Apply a mailbox of patches</span>
+git<span class="w"> </span>am<span class="w"> </span>path/to/patches/*.patch
+
+<span class="c1"># Handle patch application conflicts</span>
+git<span class="w"> </span>am<span class="w"> </span>--abort<span class="w">     </span><span class="c1"># Abort the patch application</span>
+git<span class="w"> </span>am<span class="w"> </span>--skip<span class="w">      </span><span class="c1"># Skip the current patch</span>
+git<span class="w"> </span>am<span class="w"> </span>--continue<span class="w">  </span><span class="c1"># Continue after resolving conflicts</span>
+</code></pre></div>
+<h3 id="working-with-git-bundles">Working with Git Bundles<a class="headerlink" href="#working-with-git-bundles" title="Permanent link">&para;</a></h3>
+<p>Transport commits without a remote server:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a bundle of all commits</span>
+git<span class="w"> </span>bundle<span class="w"> </span>create<span class="w"> </span>repo.bundle<span class="w"> </span>--all
+
+<span class="c1"># Create a bundle of commits not in a remote</span>
+git<span class="w"> </span>bundle<span class="w"> </span>create<span class="w"> </span>commits.bundle<span class="w"> </span>origin/main..HEAD
+
+<span class="c1"># Verify a bundle</span>
+git<span class="w"> </span>bundle<span class="w"> </span>verify<span class="w"> </span>commits.bundle
+
+<span class="c1"># List commits in a bundle</span>
+git<span class="w"> </span>bundle<span class="w"> </span>list-heads<span class="w"> </span>commits.bundle
+
+<span class="c1"># Clone from a bundle</span>
+git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span>main<span class="w"> </span>commits.bundle<span class="w"> </span>new-repo
+
+<span class="c1"># Pull from a bundle</span>
+git<span class="w"> </span>pull<span class="w"> </span>commits.bundle<span class="w"> </span>main
+</code></pre></div>
+<h3 id="email-based-workflows">Email-based Workflows<a class="headerlink" href="#email-based-workflows" title="Permanent link">&para;</a></h3>
+<p>Send and receive changes via email:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Configure Git for email</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>sendemail.smtpserver<span class="w"> </span>smtp.example.com
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>sendemail.smtpuser<span class="w"> </span>username
+
+<span class="c1"># Send patches via email</span>
+git<span class="w"> </span>format-patch<span class="w"> </span>-1<span class="w"> </span>--stdout<span class="w"> </span><span class="p">|</span><span class="w"> </span>git<span class="w"> </span>send-email<span class="w"> </span>--to<span class="o">=</span>recipient@example.com
+
+<span class="c1"># Send a patch series</span>
+git<span class="w"> </span>send-email<span class="w"> </span>*.patch<span class="w"> </span>--cover-letter<span class="w"> </span>--annotate
+
+<span class="c1"># Apply emailed patches</span>
+git<span class="w"> </span>am<span class="w"> </span>&lt;<span class="w"> </span>received-patch.patch
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Patches and bundles are useful for offline collaboration or when working with contributors who don't have direct repository access.</p>
+</blockquote>
+<hr />
+<h2 id="advanced-searching-and-filtering">🔎 Advanced Searching and Filtering<a class="headerlink" href="#advanced-searching-and-filtering" title="Permanent link">&para;</a></h2>
+<p>Find specific changes and code in large repositories.</p>
+<h3 id="advanced-log-filtering">Advanced Log Filtering<a class="headerlink" href="#advanced-log-filtering" title="Permanent link">&para;</a></h3>
+<p>Filter commit history with precision:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show commits matching a pattern</span>
+git<span class="w"> </span>log<span class="w"> </span>--grep<span class="o">=</span><span class="s2">&quot;bug fix&quot;</span>
+
+<span class="c1"># Case-insensitive search</span>
+git<span class="w"> </span>log<span class="w"> </span>--grep<span class="o">=</span><span class="s2">&quot;feature&quot;</span><span class="w"> </span>--regexp-ignore-case
+
+<span class="c1"># Filter by author</span>
+git<span class="w"> </span>log<span class="w"> </span>--author<span class="o">=</span><span class="s2">&quot;Jane Smith&quot;</span>
+
+<span class="c1"># Filter by committer</span>
+git<span class="w"> </span>log<span class="w"> </span>--committer<span class="o">=</span><span class="s2">&quot;John Doe&quot;</span>
+
+<span class="c1"># Filter by date range</span>
+git<span class="w"> </span>log<span class="w"> </span>--since<span class="o">=</span><span class="s2">&quot;2023-01-01&quot;</span><span class="w"> </span>--until<span class="o">=</span><span class="s2">&quot;2023-01-31&quot;</span>
+
+<span class="c1"># Filter by file</span>
+git<span class="w"> </span>log<span class="w"> </span>--<span class="w"> </span>path/to/file.js
+
+<span class="c1"># Filter by content changes</span>
+git<span class="w"> </span>log<span class="w"> </span>-S<span class="s2">&quot;function getName&quot;</span><span class="w"> </span>--patch
+
+<span class="c1"># Show only merge commits</span>
+git<span class="w"> </span>log<span class="w"> </span>--merges
+
+<span class="c1"># Show commits that added or removed a specific string</span>
+git<span class="w"> </span>log<span class="w"> </span>-p<span class="w"> </span>-S<span class="s2">&quot;SearchString&quot;</span>
+</code></pre></div>
+<h3 id="git-grep">Git Grep<a class="headerlink" href="#git-grep" title="Permanent link">&para;</a></h3>
+<p>Search the working directory:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Search for a pattern in tracked files</span>
+git<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;TODO&quot;</span>
+
+<span class="c1"># Show line numbers</span>
+git<span class="w"> </span>grep<span class="w"> </span>-n<span class="w"> </span><span class="s2">&quot;TODO&quot;</span>
+
+<span class="c1"># Search only specific files</span>
+git<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;function&quot;</span><span class="w"> </span>--<span class="w"> </span><span class="s2">&quot;*.js&quot;</span>
+
+<span class="c1"># Case-insensitive search</span>
+git<span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;error&quot;</span>
+
+<span class="c1"># Show context lines around matches</span>
+git<span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">2</span><span class="w"> </span>-B<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="s2">&quot;important function&quot;</span>
+
+<span class="c1"># Search across all branches</span>
+git<span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;TODO&quot;</span><span class="w"> </span><span class="k">$(</span>git<span class="w"> </span>show-ref<span class="w"> </span>--heads<span class="k">)</span>
+</code></pre></div>
+<h3 id="searching-commit-content">Searching Commit Content<a class="headerlink" href="#searching-commit-content" title="Permanent link">&para;</a></h3>
+<p>Find when a specific code pattern was introduced:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Search through commit diffs</span>
+git<span class="w"> </span>log<span class="w"> </span>-p<span class="w"> </span>-S<span class="s2">&quot;function getUserData&quot;</span><span class="w"> </span>--all
+
+<span class="c1"># Search using regex</span>
+git<span class="w"> </span>log<span class="w"> </span>-p<span class="w"> </span>-G<span class="s2">&quot;user[A-Z][a-z]+Data&quot;</span><span class="w"> </span>--all
+
+<span class="c1"># Find when a specific line was changed</span>
+git<span class="w"> </span>log<span class="w"> </span>-L<span class="w"> </span><span class="s1">&#39;/function start/,/function end/&#39;</span>:file.js
+</code></pre></div>
+<h3 id="pickaxe-search">Pickaxe Search<a class="headerlink" href="#pickaxe-search" title="Permanent link">&para;</a></h3>
+<p>Track the evolution of specific code:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Find when a string was added or removed</span>
+git<span class="w"> </span>log<span class="w"> </span>-S<span class="s2">&quot;importantString&quot;</span><span class="w"> </span>--oneline
+
+<span class="c1"># Find commits that changed the number of occurrences of a string</span>
+git<span class="w"> </span>log<span class="w"> </span>-G<span class="s2">&quot;pattern&quot;</span><span class="w"> </span>--patch
+
+<span class="c1"># Combine with author filter</span>
+git<span class="w"> </span>log<span class="w"> </span>-S<span class="s2">&quot;SecurityFix&quot;</span><span class="w"> </span>--author<span class="o">=</span><span class="s2">&quot;Security Team&quot;</span><span class="w"> </span>--patch
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Tip</strong>: For complex searches, combine multiple search flags to narrow down results.</p>
+</blockquote>
+<hr />
+<h2 id="git-attributes-and-features">📊 Git Attributes and Features<a class="headerlink" href="#git-attributes-and-features" title="Permanent link">&para;</a></h2>
+<p>Configure special handling for different file types.</p>
+<h3 id="setting-attributes">Setting Attributes<a class="headerlink" href="#setting-attributes" title="Permanent link">&para;</a></h3>
+<p>Git attributes control how Git handles specific files:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a .gitattributes file</span>
+touch<span class="w"> </span>.gitattributes
+
+<span class="c1"># Common .gitattributes entries</span>
+*.txt<span class="w"> </span>text
+*.png<span class="w"> </span>binary
+*.jpg<span class="w"> </span>binary
+*.sh<span class="w"> </span>text<span class="w"> </span><span class="nv">eol</span><span class="o">=</span>lf
+*.bat<span class="w"> </span>text<span class="w"> </span><span class="nv">eol</span><span class="o">=</span>crlf
+</code></pre></div>
+<h3 id="keyword-expansion">Keyword Expansion<a class="headerlink" href="#keyword-expansion" title="Permanent link">&para;</a></h3>
+<p>Set up RCS-style keyword expansion:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># In .gitattributes</span>
+*.txt<span class="w"> </span>ident
+
+<span class="c1"># In the text file, use:</span>
+<span class="c1"># $Id$</span>
+<span class="c1"># $Date$</span>
+</code></pre></div>
+<p>Enabling ident filter:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>filter.indent.clean<span class="w"> </span><span class="s2">&quot;sed -e &#39;s/\$Id[^</span>$<span class="s2">]*\\</span>$<span class="s2">/\$Id\\</span>$<span class="s2">/&#39;&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>filter.indent.smudge<span class="w"> </span><span class="s2">&quot;sed -e &#39;s/\$Id\\</span>$<span class="s2">/\$Id: </span><span class="k">$(</span>git<span class="w"> </span>describe<span class="k">)</span><span class="s2">\\</span>$<span class="s2">/&#39;&quot;</span>
+</code></pre></div>
+<h3 id="export-ignore">Export-ignore<a class="headerlink" href="#export-ignore" title="Permanent link">&para;</a></h3>
+<p>Exclude files from archives:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># In .gitattributes - exclude from git archive</span>
+/tests<span class="w"> </span>export-ignore
+/.github<span class="w"> </span>export-ignore
+/docs<span class="w"> </span>export-ignore
+.gitignore<span class="w"> </span>export-ignore
+.gitattributes<span class="w"> </span>export-ignore
+</code></pre></div>
+<h3 id="merge-strategies">Merge Strategies<a class="headerlink" href="#merge-strategies" title="Permanent link">&para;</a></h3>
+<p>Define custom merge strategies:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># In .gitattributes</span>
+database.xml<span class="w"> </span><span class="nv">merge</span><span class="o">=</span>ours
+
+<span class="c1"># Configure Git to use the strategy</span>
+git<span class="w"> </span>config<span class="w"> </span>merge.ours.driver<span class="w"> </span><span class="s2">&quot;true&quot;</span>
+</code></pre></div>
+<p>Common merge drivers:</p>
+<ul>
+<li><code>ours</code> - Always keep our version</li>
+<li><code>theirs</code> - Always keep their version</li>
+<li><code>union</code> - Include both versions (for text files)</li>
+</ul>
+<h3 id="diff-drivers">Diff Drivers<a class="headerlink" href="#diff-drivers" title="Permanent link">&para;</a></h3>
+<p>Configure how Git generates diffs for special files:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># In .gitattributes</span>
+*.png<span class="w"> </span><span class="nv">diff</span><span class="o">=</span>exif
+
+<span class="c1"># Configure the diff driver</span>
+git<span class="w"> </span>config<span class="w"> </span>diff.exif.textconv<span class="w"> </span>exiftool
+</code></pre></div>
+<p>Example diff drivers:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Word documents</span>
+*.docx<span class="w"> </span><span class="nv">diff</span><span class="o">=</span>word
+git<span class="w"> </span>config<span class="w"> </span>diff.word.textconv<span class="w"> </span><span class="s2">&quot;docx2txt &lt; \&quot;</span><span class="nv">$1</span><span class="s2">\&quot;&quot;</span>
+
+<span class="c1"># PDF documents</span>
+*.pdf<span class="w"> </span><span class="nv">diff</span><span class="o">=</span>pdf
+git<span class="w"> </span>config<span class="w"> </span>diff.pdf.textconv<span class="w"> </span><span class="s2">&quot;pdftotext \&quot;</span><span class="nv">$1</span><span class="s2">\&quot; -&quot;</span>
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Git attributes can dramatically improve the handling of binary files and specialized file formats. They can also enforce consistent line endings across teams.</p>
+</blockquote>
+<hr />
+<h2 id="working-with-monorepos">🏗️ Working with Monorepos<a class="headerlink" href="#working-with-monorepos" title="Permanent link">&para;</a></h2>
+<p>Techniques for managing large repositories with multiple projects.</p>
+<h3 id="sparse-checkouts">Sparse Checkouts<a class="headerlink" href="#sparse-checkouts" title="Permanent link">&para;</a></h3>
+<p>Check out only parts of a repository:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable sparse checkout</span>
+git<span class="w"> </span>config<span class="w"> </span>core.sparseCheckout<span class="w"> </span><span class="nb">true</span>
+
+<span class="c1"># Define what to check out</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;path/to/include/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.git/info/sparse-checkout
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;another/path/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.git/info/sparse-checkout
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;!path/to/exclude/&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.git/info/sparse-checkout
+
+<span class="c1"># Update working directory</span>
+git<span class="w"> </span>read-tree<span class="w"> </span>-mu<span class="w"> </span>HEAD
+
+<span class="c1"># Using cone mode (Git 2.25+)</span>
+git<span class="w"> </span>sparse-checkout<span class="w"> </span>init<span class="w"> </span>--cone
+git<span class="w"> </span>sparse-checkout<span class="w"> </span><span class="nb">set</span><span class="w"> </span>path/to/include<span class="w"> </span>another/path
+</code></pre></div>
+<h3 id="partial-clones">Partial Clones<a class="headerlink" href="#partial-clones" title="Permanent link">&para;</a></h3>
+<p>Clone only part of a repository:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Exclude blobs (file contents) at clone time</span>
+git<span class="w"> </span>clone<span class="w"> </span>--filter<span class="o">=</span>blob:none<span class="w"> </span>https://github.com/user/repo.git
+
+<span class="c1"># Exclude trees (directories) for single branch</span>
+git<span class="w"> </span>clone<span class="w"> </span>--filter<span class="o">=</span>tree:0<span class="w"> </span>--single-branch<span class="w"> </span>https://github.com/user/repo.git
+
+<span class="c1"># Filter with blobless option (Git 2.27+)</span>
+git<span class="w"> </span>clone<span class="w"> </span>--filter<span class="o">=</span>blob:none<span class="w"> </span>--also-filter-submodules<span class="w"> </span>https://github.com/user/repo.git
+
+<span class="c1"># Fetch file content on demand</span>
+git<span class="w"> </span>rev-list<span class="w"> </span>--objects<span class="w"> </span>--all<span class="w"> </span>--filter<span class="o">=</span>blob:limit<span class="o">=</span>1m
+</code></pre></div>
+<h3 id="git-extensions-for-large-repos">Git Extensions for Large Repos<a class="headerlink" href="#git-extensions-for-large-repos" title="Permanent link">&para;</a></h3>
+<p>Tools to help manage large repositories:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Git LFS setup</span>
+git<span class="w"> </span>lfs<span class="w"> </span>install
+git<span class="w"> </span>lfs<span class="w"> </span>track<span class="w"> </span><span class="s2">&quot;*.psd&quot;</span>
+git<span class="w"> </span>lfs<span class="w"> </span>track<span class="w"> </span><span class="s2">&quot;*.zip&quot;</span>
+git<span class="w"> </span>add<span class="w"> </span>.gitattributes
+git<span class="w"> </span>add<span class="w"> </span>file.psd
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add large file&quot;</span>
+
+<span class="c1"># VFS for Git (previously GVFS) for extremely large repos</span>
+<span class="c1"># This is a specialized system used by very large projects</span>
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Tip</strong>: For monorepos, consider implementing project-specific hooks and CI workflows to isolate changes and testing.</p>
+</blockquote>
+<hr />
+<h2 id="custom-git-commands">🛠️ Custom Git Commands<a class="headerlink" href="#custom-git-commands" title="Permanent link">&para;</a></h2>
+<p>Create your own Git commands for specialized workflows.</p>
+<h3 id="creating-custom-commands">Creating Custom Commands<a class="headerlink" href="#creating-custom-commands" title="Permanent link">&para;</a></h3>
+<p>Make new Git commands with aliases or scripts:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create an alias command</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.new-command<span class="w"> </span><span class="s1">&#39;!git command1 &amp;&amp; git command2&#39;</span>
+
+<span class="c1"># Create a Git command script</span>
+<span class="c1"># 1. Create a script file named git-custom-cmd</span>
+<span class="c1">#!/bin/bash</span>
+<span class="c1"># Script content here</span>
+
+<span class="c1"># 2. Make it executable</span>
+chmod<span class="w"> </span>+x<span class="w"> </span>git-custom-cmd
+
+<span class="c1"># 3. Place it on your PATH</span>
+<span class="c1"># Now you can use: git custom-cmd</span>
+</code></pre></div>
+<h3 id="useful-custom-commands">Useful Custom Commands<a class="headerlink" href="#useful-custom-commands" title="Permanent link">&para;</a></h3>
+<p>Example custom commands:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show a compact log with graph</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.compact-log<span class="w"> </span><span class="s1">&#39;log --graph --pretty=format:&quot;%C(yellow)%h%Creset %C(blue)%an%Creset:%C(red)%d%Creset %s %C(green)(%cr)%Creset&quot; --abbrev-commit&#39;</span>
+
+<span class="c1"># Show all uncommitted changes</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.changes<span class="w"> </span><span class="s1">&#39;!git diff &amp;&amp; git diff --staged&#39;</span>
+
+<span class="c1"># List all aliases</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.aliases<span class="w"> </span><span class="s1">&#39;!git config --get-regexp &quot;^alias\\.&quot; | sed -e &quot;s/^alias\\.//g&quot; -e &quot;s/\\ /\\ =\\ /g&quot;&#39;</span>
+
+<span class="c1"># See last 10 commits in a pretty format</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>alias.recent<span class="w"> </span><span class="s1">&#39;log -10 --pretty=format:&quot;%h %ad | %s%d [%an]&quot; --graph --date=short&#39;</span>
+</code></pre></div>
+<h3 id="extending-git">Extending Git<a class="headerlink" href="#extending-git" title="Permanent link">&para;</a></h3>
+<p>More advanced extensions:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a Git extension for complex operations</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>~/bin/git-find-merge<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
+<span class="s">#!/bin/bash</span>
+<span class="s">commit=\$1</span>
+<span class="s">for branch in \$(git for-each-ref --format=&quot;%(refname)&quot; refs/heads); do</span>
+<span class="s">    if git rev-list \$branch | grep -q &quot;\$commit&quot;; then</span>
+<span class="s">        echo \$branch</span>
+<span class="s">    fi</span>
+<span class="s">done</span>
+<span class="s">EOF</span>
+chmod<span class="w"> </span>+x<span class="w"> </span>~/bin/git-find-merge
+
+<span class="c1"># Usage</span>
+git<span class="w"> </span>find-merge<span class="w"> </span>7abc123
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Custom commands can greatly streamline team-specific or project-specific workflows. Share them with your team for consistent processes.</p>
+</blockquote>
+<hr />
+<h2 id="advanced-branch-management">🔀 Advanced Branch Management<a class="headerlink" href="#advanced-branch-management" title="Permanent link">&para;</a></h2>
+<p>Advanced techniques for branch organization and management.</p>
+<h3 id="orphan-branches">Orphan Branches<a class="headerlink" href="#orphan-branches" title="Permanent link">&para;</a></h3>
+<p>Create branches with no connection to existing history:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create an orphan branch</span>
+git<span class="w"> </span>checkout<span class="w"> </span>--orphan<span class="w"> </span>new-branch
+
+<span class="c1"># Clean the working directory</span>
+git<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>.
+
+<span class="c1"># Create new content and commit</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;New content&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>file.txt
+git<span class="w"> </span>add<span class="w"> </span>file.txt
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial commit in orphan branch&quot;</span>
+</code></pre></div>
+<p>Use cases:</p>
+<ul>
+<li>GitHub Pages branches (<code>gh-pages</code>)</li>
+<li>Separate documentation history</li>
+<li>Starting fresh without previous baggage</li>
+</ul>
+<h3 id="worktrees">Worktrees<a class="headerlink" href="#worktrees" title="Permanent link">&para;</a></h3>
+<p>Work on multiple branches simultaneously without switching:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add a new worktree</span>
+git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>../path/to/worktree<span class="w"> </span>branch-name
+
+<span class="c1"># Add a new worktree with a new branch</span>
+git<span class="w"> </span>worktree<span class="w"> </span>add<span class="w"> </span>-b<span class="w"> </span>new-branch<span class="w"> </span>../path/to/worktree<span class="w"> </span>main
+
+<span class="c1"># List worktrees</span>
+git<span class="w"> </span>worktree<span class="w"> </span>list
+
+<span class="c1"># Remove a worktree</span>
+git<span class="w"> </span>worktree<span class="w"> </span>remove<span class="w"> </span>../path/to/worktree
+
+<span class="c1"># Prune worktree information</span>
+git<span class="w"> </span>worktree<span class="w"> </span>prune
+</code></pre></div>
+<h3 id="reference-specifications">Reference Specifications<a class="headerlink" href="#reference-specifications" title="Permanent link">&para;</a></h3>
+<p>Advanced refspec usage:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Push a local branch to a differently named remote branch</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>local-branch:remote-branch
+
+<span class="c1"># Delete a remote branch</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>:branch-to-delete
+
+<span class="c1"># Pull a remote branch to a differently named local branch</span>
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>remote-branch:local-branch
+
+<span class="c1"># Fetch all branches</span>
+git<span class="w"> </span>fetch<span class="w"> </span>origin<span class="w"> </span><span class="s1">&#39;+refs/heads/*:refs/remotes/origin/*&#39;</span>
+
+<span class="c1"># Fetch pull requests from GitHub</span>
+git<span class="w"> </span>fetch<span class="w"> </span>origin<span class="w"> </span><span class="s1">&#39;+refs/pull/*/head:refs/remotes/origin/pr/*&#39;</span>
+</code></pre></div>
+<h3 id="namespaces">Namespaces<a class="headerlink" href="#namespaces" title="Permanent link">&para;</a></h3>
+<p>Organize refs with namespaces:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a namespaced tag</span>
+git<span class="w"> </span>tag<span class="w"> </span>refs/namespaces/project/tags/v1.0
+
+<span class="c1"># Create a namespaced branch</span>
+git<span class="w"> </span>branch<span class="w"> </span>refs/namespaces/experiment/branches/feature
+
+<span class="c1"># Push namespaced refs</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span><span class="s1">&#39;refs/namespaces/project/*:refs/namespaces/project/*&#39;</span>
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Worktrees are especially useful for quickly switching context, like fixing a bug while in the middle of developing a feature, without stashing changes.</p>
+</blockquote>
+<hr />
+<h2 id="performance-optimization">🔧 Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">&para;</a></h2>
+<p>Techniques to make Git operations faster and more efficient.</p>
+<h3 id="repository-maintenance">Repository Maintenance<a class="headerlink" href="#repository-maintenance" title="Permanent link">&para;</a></h3>
+<p>Keep your repository efficient:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Remove unnecessary files</span>
+git<span class="w"> </span>gc
+
+<span class="c1"># More aggressive optimization</span>
+git<span class="w"> </span>gc<span class="w"> </span>--aggressive
+
+<span class="c1"># Optimize how files are stored</span>
+git<span class="w"> </span>repack<span class="w"> </span>-a<span class="w"> </span>-d
+
+<span class="c1"># Prune unreachable objects immediately</span>
+git<span class="w"> </span>prune
+
+<span class="c1"># Verify the database integrity</span>
+git<span class="w"> </span>fsck
+
+<span class="c1"># Count objects for size information</span>
+git<span class="w"> </span>count-objects<span class="w"> </span>-v
+</code></pre></div>
+<h3 id="shallow-clones-and-sparse-checkouts">Shallow Clones and Sparse Checkouts<a class="headerlink" href="#shallow-clones-and-sparse-checkouts" title="Permanent link">&para;</a></h3>
+<p>Optimize Git for large repositories:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Shallow clone (only recent history)</span>
+git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="o">=</span><span class="m">1</span><span class="w"> </span>https://github.com/user/repo.git
+
+<span class="c1"># Fetch additional history later</span>
+git<span class="w"> </span>fetch<span class="w"> </span>--unshallow
+
+<span class="c1"># Fetch specific depth</span>
+git<span class="w"> </span>fetch<span class="w"> </span>--depth<span class="o">=</span><span class="m">100</span>
+
+<span class="c1"># Sparse checkout (only specific directories)</span>
+git<span class="w"> </span>sparse-checkout<span class="w"> </span><span class="nb">set</span><span class="w"> </span>dir1/<span class="w"> </span>dir2/
+</code></pre></div>
+<h3 id="optimizing-git-config">Optimizing Git Config<a class="headerlink" href="#optimizing-git-config" title="Permanent link">&para;</a></h3>
+<p>Settings to improve performance:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Faster status operations</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.untrackedCache<span class="w"> </span><span class="nb">true</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.fsmonitor<span class="w"> </span><span class="nb">true</span>
+
+<span class="c1"># Parallel operations</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>submodule.fetchJobs<span class="w"> </span><span class="m">8</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>fetch.parallel<span class="w"> </span><span class="m">8</span>
+
+<span class="c1"># Reuse recorded resolutions</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>rerere.enabled<span class="w"> </span><span class="nb">true</span>
+
+<span class="c1"># Delta compression options</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.preloadIndex<span class="w"> </span><span class="nb">true</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>core.deltaBaseCacheLimit<span class="w"> </span>2g
+</code></pre></div>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Periodic maintenance (<code>git gc</code> and <code>git prune</code>) keeps your repository lean and operations fast. Schedule these as regular tasks for large repositories.</p>
+</blockquote>
+<hr />
+<h2 id="command-summary">💻 Command Summary<a class="headerlink" href="#command-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git hook</code></td>
+<td>Automation scripts</td>
+<td><code>.git/hooks/pre-commit</code></td>
+</tr>
+<tr>
+<td><code>git cat-file</code></td>
+<td>Inspect Git objects</td>
+<td><code>git cat-file -p HEAD</code></td>
+</tr>
+<tr>
+<td><code>git submodule</code></td>
+<td>Manage external repos</td>
+<td><code>git submodule add https://github.com/user/repo</code></td>
+</tr>
+<tr>
+<td><code>git subtree</code></td>
+<td>Merge external repos</td>
+<td><code>git subtree add --prefix=lib https://github.com/user/repo main</code></td>
+</tr>
+<tr>
+<td><code>git bisect</code></td>
+<td>Find buggy commit</td>
+<td><code>git bisect start; git bisect bad; git bisect good v1.0</code></td>
+</tr>
+<tr>
+<td><code>git blame</code></td>
+<td>Show who changed lines</td>
+<td><code>git blame -L 10,20 file.txt</code></td>
+</tr>
+<tr>
+<td><code>git rebase -i</code></td>
+<td>Interactive history editing</td>
+<td><code>git rebase -i HEAD~5</code></td>
+</tr>
+<tr>
+<td><code>git filter-repo</code></td>
+<td>Rewrite history</td>
+<td><code>git filter-repo --path path/to/remove --invert-paths</code></td>
+</tr>
+<tr>
+<td><code>git format-patch</code></td>
+<td>Create patch files</td>
+<td><code>git format-patch -1 HEAD</code></td>
+</tr>
+<tr>
+<td><code>git am</code></td>
+<td>Apply patches</td>
+<td><code>git am &lt; patch-file.patch</code></td>
+</tr>
+<tr>
+<td><code>git bundle</code></td>
+<td>Create portable repos</td>
+<td><code>git bundle create repo.bundle --all</code></td>
+</tr>
+<tr>
+<td><code>git grep</code></td>
+<td>Search code</td>
+<td><code>git grep -n "TODO"</code></td>
+</tr>
+<tr>
+<td><code>git worktree</code></td>
+<td>Multiple working dirs</td>
+<td><code>git worktree add ../feature feature-branch</code></td>
+</tr>
+<tr>
+<td><code>git gc</code></td>
+<td>Repository maintenance</td>
+<td><code>git gc --aggressive</code></td>
+</tr>
+<tr>
+<td><code>git sparse-checkout</code></td>
+<td>Partial directory checkout</td>
+<td><code>git sparse-checkout set path/to/dir</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-topics">🔗 Related Topics<a class="headerlink" href="#related-topics" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="10-troubleshooting.md">Solving common Git problems</a></li>
+<li><a href="12-development-workflows.md">Established Git workflows for teams</a></li>
+<li><a href="13-github-actions.md">Automating tasks with GitHub Actions</a></li>
+</ul>
+<hr />
+<p><em>Next: <a href="12-development-workflows.md">Established Git workflows for teams</a></em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

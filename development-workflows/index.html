@@ -1,0 +1,3397 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A comprehensive Git reference guide">
+      
+      
+        <meta name="author" content="Brandon Cummings">
+      
+      
+      
+        <link rel="prev" href="../advanced-topics/">
+      
+      
+        <link rel="next" href="../github-actions/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>Development Workflows - Git Cheat Sheet</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#established-git-workflows-for-teams" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Git Cheat Sheet" class="md-header__button md-logo" aria-label="Git Cheat Sheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Git Cheat Sheet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Development Workflows
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/rbcmgs/git-cheat-sheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rbcmgs/git-cheat-sheet
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../setup-and-init/" class="md-tabs__link">
+          
+  
+  
+  Git Fundamentals
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../branching/" class="md-tabs__link">
+          
+  
+  
+  Branch Management
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../remote-operations/" class="md-tabs__link">
+          
+  
+  
+  Remote Collaboration
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../tags-releases/" class="md-tabs__link">
+          
+  
+  
+  Project History & Versions
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../config-aliases/" class="md-tabs__link">
+          
+  
+  
+  Customization & Troubleshooting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../advanced-topics/" class="md-tabs__link">
+          
+  
+  
+  Advanced Usage
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../resources/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Resources
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Git Cheat Sheet" class="md-nav__button md-logo" aria-label="Git Cheat Sheet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Git Cheat Sheet
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/rbcmgs/git-cheat-sheet" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    rbcmgs/git-cheat-sheet
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Git Fundamentals
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Git Fundamentals
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../setup-and-init/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Setup and Init
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic-usage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Basic Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Branch Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Branch Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../branching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Branching
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../merging-rebasing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Merging & Rebasing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Remote Collaboration
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Remote Collaboration
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../remote-operations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remote Operations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stash-clean/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Stash & Clean
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Project History & Versions
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Project History & Versions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags-releases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tags & Releases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../logs-diffs-history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logs, Diffs & History
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Customization & Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Customization & Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config-aliases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Config & Aliases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Advanced Usage
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Advanced Usage
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../advanced-topics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Advanced Topics
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Development Workflows
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development Workflows
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-git-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Understanding Git Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Understanding Git Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-git-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Git Workflow?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-the-right-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing the Right Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-workflow-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Workflow Elements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centralized-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Centralized Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Centralized Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advantages-and-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advantages and Limitations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-branch-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Feature Branch Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Feature Branch Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-feature-branch-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for Feature Branch Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-feature-branch-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for Feature Branch Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branch-naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branch Naming Conventions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Request Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-review-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Review Guidelines
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gitflow-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌴 Gitflow Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌴 Gitflow Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-gitflow-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for Gitflow Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branch-types-and-purposes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branch Types and Purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-gitflow-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for Gitflow Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hotfix-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hotfix Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gitflow-tools-and-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitFlow Tools and Extensions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forking-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🍴 Forking Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🍴 Forking Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-forking-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for Forking Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fork-and-clone-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fork and Clone Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-forking-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for Forking Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronizing-with-upstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      Synchronizing with Upstream
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-process-for-forking-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Request Process for Forking Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trunk-based-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔃 Trunk-Based Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔃 Trunk-Based Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-trunk-based-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for Trunk-Based Development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-trunk-based-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for Trunk-Based Development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-toggles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Toggles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cicd-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      CI/CD Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-with-feature-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison with Feature Branches
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚛️ GitHub Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚛️ GitHub Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-github-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for GitHub Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-github-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for GitHub Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-with-gitflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison with GitFlow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gitlab-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔁 GitLab Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔁 GitLab Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-gitlab-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for GitLab Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-gitlab-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for GitLab Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-management-for-gitlab-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Management for GitLab Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Comparing Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Comparing Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Comparison Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-a-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting a Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customizing-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing Workflows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrating-with-development-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Integrating with Development Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Integrating with Development Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continuous-integration-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous Integration (CI)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-review-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Review Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Practices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      💻 Command Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Related Topics
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github-actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GitHub Actions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Resources
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of Contents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#understanding-git-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Understanding Git Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Understanding Git Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-a-git-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is a Git Workflow?
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-the-right-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing the Right Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#core-workflow-elements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Workflow Elements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#centralized-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Centralized Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Centralized Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advantages-and-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advantages and Limitations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feature-branch-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Feature Branch Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Feature Branch Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-feature-branch-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for Feature Branch Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-feature-branch-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for Feature Branch Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branch-naming-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branch Naming Conventions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Request Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-review-guidelines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Review Guidelines
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gitflow-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌴 Gitflow Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🌴 Gitflow Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-gitflow-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for Gitflow Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#branch-types-and-purposes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branch Types and Purposes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-gitflow-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for Gitflow Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hotfix-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hotfix Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gitflow-tools-and-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      GitFlow Tools and Extensions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forking-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🍴 Forking Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🍴 Forking Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-forking-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for Forking Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fork-and-clone-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fork and Clone Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-forking-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for Forking Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronizing-with-upstream" class="md-nav__link">
+    <span class="md-ellipsis">
+      Synchronizing with Upstream
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-process-for-forking-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Request Process for Forking Workflow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trunk-based-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔃 Trunk-Based Development
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔃 Trunk-Based Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-trunk-based-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for Trunk-Based Development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-trunk-based-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for Trunk-Based Development
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-toggles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Toggles
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cicd-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      CI/CD Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-with-feature-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison with Feature Branches
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚛️ GitHub Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="⚛️ GitHub Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-github-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for GitHub Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-github-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for GitHub Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparison-with-gitflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comparison with GitFlow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gitlab-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔁 GitLab Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔁 GitLab Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#overview-and-use-cases-for-gitlab-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview and Use Cases for GitLab Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-steps-for-gitlab-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation Steps for GitLab Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-management-for-gitlab-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Management for GitLab Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Comparing Workflows
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Comparing Workflows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-comparison-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workflow Comparison Table
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-a-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting a Workflow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#customizing-workflows" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customizing Workflows
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrating-with-development-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧩 Integrating with Development Practices
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧩 Integrating with Development Practices">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#continuous-integration-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      Continuous Integration (CI)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-review-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Review Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#release-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Management
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Practices
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      💻 Command Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Related Topics
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="established-git-workflows-for-teams">🌊 Established Git Workflows for Teams<a class="headerlink" href="#established-git-workflows-for-teams" title="Permanent link">&para;</a></h1>
+<p><em>Master proven Git collaboration strategies to enhance team productivity, code quality, and release management.</em></p>
+<hr />
+<h2 id="table-of-contents">Table of Contents<a class="headerlink" href="#table-of-contents" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#-established-git-workflows-for-teams">🌊 Established Git Workflows for Teams</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#-understanding-git-workflows">🔄 Understanding Git Workflows</a><ul>
+<li><a href="#what-is-a-git-workflow">What is a Git Workflow?</a></li>
+<li><a href="#choosing-the-right-workflow">Choosing the Right Workflow</a></li>
+<li><a href="#core-workflow-elements">Core Workflow Elements</a></li>
+</ul>
+</li>
+<li><a href="#-centralized-workflow">🎯 Centralized Workflow</a><ul>
+<li><a href="#overview-and-use-cases">Overview and Use Cases</a></li>
+<li><a href="#implementation-steps">Implementation Steps</a></li>
+<li><a href="#advantages-and-limitations">Advantages and Limitations</a></li>
+<li><a href="#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li><a href="#-feature-branch-workflow">🔄 Feature Branch Workflow</a><ul>
+<li><a href="#overview-and-use-cases-for-feature-branch-workflow">Overview and Use Cases for Feature Branch Workflow</a></li>
+<li><a href="#implementation-steps-for-feature-branch-workflow">Implementation Steps for Feature Branch Workflow</a></li>
+<li><a href="#branch-naming-conventions">Branch Naming Conventions</a></li>
+<li><a href="#pull-request-process">Pull Request Process</a></li>
+<li><a href="#code-review-guidelines">Code Review Guidelines</a></li>
+</ul>
+</li>
+<li><a href="#-gitflow-workflow">🌴 Gitflow Workflow</a><ul>
+<li><a href="#overview-and-use-cases-for-gitflow-workflow">Overview and Use Cases for Gitflow Workflow</a></li>
+<li><a href="#branch-types-and-purposes">Branch Types and Purposes</a></li>
+<li><a href="#implementation-steps-for-gitflow-workflow">Implementation Steps for Gitflow Workflow</a></li>
+<li><a href="#release-process">Release Process</a></li>
+<li><a href="#hotfix-process">Hotfix Process</a></li>
+<li><a href="#gitflow-tools-and-extensions">GitFlow Tools and Extensions</a></li>
+</ul>
+</li>
+<li><a href="#-forking-workflow">🍴 Forking Workflow</a><ul>
+<li><a href="#overview-and-use-cases-for-forking-workflow">Overview and Use Cases for Forking Workflow</a></li>
+<li><a href="#fork-and-clone-process">Fork and Clone Process</a></li>
+<li><a href="#implementation-steps-for-forking-workflow">Implementation Steps for Forking Workflow</a></li>
+<li><a href="#synchronizing-with-upstream">Synchronizing with Upstream</a></li>
+<li><a href="#pull-request-process-for-forking-workflow">Pull Request Process for Forking Workflow</a></li>
+</ul>
+</li>
+<li><a href="#-trunk-based-development">🔃 Trunk-Based Development</a><ul>
+<li><a href="#overview-and-use-cases-for-trunk-based-development">Overview and Use Cases for Trunk-Based Development</a></li>
+<li><a href="#implementation-steps-for-trunk-based-development">Implementation Steps for Trunk-Based Development</a></li>
+<li><a href="#feature-toggles">Feature Toggles</a></li>
+<li><a href="#cicd-integration">CI/CD Integration</a></li>
+<li><a href="#comparison-with-feature-branches">Comparison with Feature Branches</a></li>
+</ul>
+</li>
+<li><a href="#️-github-flow">⚛️ GitHub Flow</a><ul>
+<li><a href="#overview-and-use-cases-for-github-flow">Overview and Use Cases for GitHub Flow</a></li>
+<li><a href="#implementation-steps-for-github-flow">Implementation Steps for GitHub Flow</a></li>
+<li><a href="#deployment-process">Deployment Process</a></li>
+<li><a href="#comparison-with-gitflow">Comparison with GitFlow</a></li>
+</ul>
+</li>
+<li><a href="#-gitlab-flow">🔁 GitLab Flow</a><ul>
+<li><a href="#overview-and-use-cases-for-gitlab-flow">Overview and Use Cases for GitLab Flow</a></li>
+<li><a href="#environment-branches">Environment Branches</a></li>
+<li><a href="#implementation-steps-for-gitlab-flow">Implementation Steps for GitLab Flow</a></li>
+<li><a href="#release-management-for-gitlab-flow">Release Management for GitLab Flow</a></li>
+</ul>
+</li>
+<li><a href="#-comparing-workflows">📊 Comparing Workflows</a><ul>
+<li><a href="#workflow-comparison-table">Workflow Comparison Table</a></li>
+<li><a href="#selecting-a-workflow">Selecting a Workflow</a></li>
+<li><a href="#customizing-workflows">Customizing Workflows</a></li>
+</ul>
+</li>
+<li><a href="#-integrating-with-development-practices">🧩 Integrating with Development Practices</a><ul>
+<li><a href="#continuous-integration-ci">Continuous Integration (CI)</a></li>
+<li><a href="#code-review-strategies">Code Review Strategies</a></li>
+<li><a href="#release-management">Release Management</a></li>
+<li><a href="#documentation-practices">Documentation Practices</a></li>
+</ul>
+</li>
+<li><a href="#-command-summary">💻 Command Summary</a></li>
+<li><a href="#-related-topics">🔗 Related Topics</a></li>
+</ul>
+<hr />
+<h2 id="understanding-git-workflows">🔄 Understanding Git Workflows<a class="headerlink" href="#understanding-git-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="what-is-a-git-workflow">What is a Git Workflow?<a class="headerlink" href="#what-is-a-git-workflow" title="Permanent link">&para;</a></h3>
+<p>A Git workflow is a recipe or recommendation for how to use Git to accomplish work in a consistent and productive manner. Workflows are guidelines rather than concrete rules, designed to:</p>
+<ul>
+<li>Coordinate team collaboration</li>
+<li>Ensure code quality and stability</li>
+<li>Streamline development and release processes</li>
+<li>Prevent conflicts during integration</li>
+<li>Maintain a clean, logical project history</li>
+</ul>
+<h3 id="choosing-the-right-workflow">Choosing the Right Workflow<a class="headerlink" href="#choosing-the-right-workflow" title="Permanent link">&para;</a></h3>
+<p>When selecting a workflow, consider:</p>
+<ol>
+<li>Team size and experience with Git</li>
+<li>Project complexity and release frequency</li>
+<li>Deployment requirements</li>
+<li>Integration with existing processes (CI/CD, reviews, etc.)</li>
+<li>Need for supporting multiple production versions</li>
+</ol>
+<h3 id="core-workflow-elements">Core Workflow Elements<a class="headerlink" href="#core-workflow-elements" title="Permanent link">&para;</a></h3>
+<p>Most Git workflows share these core elements:</p>
+<div class="highlight"><pre><span></span><code>┌───────────────┐      ┌────────────────┐      ┌────────────────┐
+│  Branch Model │  ──▶ │ Integration    │  ──▶ │ Release        │
+│  How code     │      │ Strategy       │      │ Process        │
+│  changes flow │      │ How changes    │      │ How to deploy  │
+└───────────────┘      │ are combined   │      │ and version    │
+                       └────────────────┘      └────────────────┘
+</code></pre></div>
+<hr />
+<h2 id="centralized-workflow">🎯 Centralized Workflow<a class="headerlink" href="#centralized-workflow" title="Permanent link">&para;</a></h2>
+<h3 id="overview-and-use-cases">Overview and Use Cases<a class="headerlink" href="#overview-and-use-cases" title="Permanent link">&para;</a></h3>
+<p>The Centralized Workflow uses a single <code>main</code> branch as the central repository for all changes, similar to traditional version control systems like SVN.</p>
+<p><strong>Best suited for:</strong></p>
+<ul>
+<li>Teams transitioning from SVN or other centralized VCS</li>
+<li>Small teams with simple projects</li>
+<li>Projects with minimal parallel development</li>
+</ul>
+<p><strong>Visual representation:</strong></p>
+<div class="highlight"><pre><span></span><code>main: A---B---C---D---E---F---G
+                      ↑     ↑
+                 Alice&#39;s   Bob&#39;s
+                 change   change
+</code></pre></div>
+<h3 id="implementation-steps">Implementation Steps<a class="headerlink" href="#implementation-steps" title="Permanent link">&para;</a></h3>
+<p><strong>Create/clone the central repository:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Initialize central repo (once)</span>
+git<span class="w"> </span>init<span class="w"> </span>--bare<span class="w"> </span>central-project.git
+
+<span class="c1"># Each developer clones the repo</span>
+git<span class="w"> </span>clone<span class="w"> </span>central-project.git
+</code></pre></div>
+<p><strong>Make local changes:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Edit files locally</span>
+git<span class="w"> </span>add<span class="w"> </span>changed-files
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Description of changes&quot;</span>
+</code></pre></div>
+<p><strong>Synchronize with central repository:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get latest changes</span>
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="c1"># Push local commits</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<p><strong>Resolve conflicts if necessary:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># When pull fails due to conflicts</span>
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+<span class="c1"># Resolve conflicts manually</span>
+git<span class="w"> </span>add<span class="w"> </span>resolved-files
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Merge and resolve conflicts&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<h3 id="advantages-and-limitations">Advantages and Limitations<a class="headerlink" href="#advantages-and-limitations" title="Permanent link">&para;</a></h3>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Simplest workflow to understand and implement</li>
+<li>Minimal branch management overhead</li>
+<li>Linear history is easy to follow</li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>No isolated environments for feature development</li>
+<li>Higher chance of merge conflicts</li>
+<li>Lack of formal code review mechanism</li>
+<li>Harder to maintain stable production code</li>
+</ul>
+<h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Pull frequently to minimize merge conflicts</li>
+<li>Communicate with team members before making significant changes</li>
+<li>Consider using feature branches for larger changes</li>
+<li>Add good commit messages to maintain a usable history</li>
+</ul>
+<hr />
+<h2 id="feature-branch-workflow">🔄 Feature Branch Workflow<a class="headerlink" href="#feature-branch-workflow" title="Permanent link">&para;</a></h2>
+<h3 id="overview-and-use-cases-for-feature-branch-workflow">Overview and Use Cases for Feature Branch Workflow<a class="headerlink" href="#overview-and-use-cases-for-feature-branch-workflow" title="Permanent link">&para;</a></h3>
+<p>The Feature Branch Workflow extends the Centralized Workflow by developing all features in dedicated branches instead of directly on <code>main</code>. This isolates new development, enabling pull requests and code reviews.</p>
+<p><strong>Best suited for:</strong></p>
+<ul>
+<li>Most professional teams</li>
+<li>Projects with multiple developers working in parallel</li>
+<li>Codebases requiring code reviews before integration</li>
+</ul>
+<p><strong>Visual representation:</strong></p>
+<div class="highlight"><pre><span></span><code>main:     A---B---C------------D---F
+                  \            /   /
+feature-1:         D---E------/   /
+                                 /
+feature-2:             G---H----/
+</code></pre></div>
+<h3 id="implementation-steps-for-feature-branch-workflow">Implementation Steps for Feature Branch Workflow<a class="headerlink" href="#implementation-steps-for-feature-branch-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Create a feature branch:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Update main first</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="c1"># Create feature branch</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/user-authentication
+</code></pre></div>
+<p><strong>Work on the feature:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Make changes</span>
+git<span class="w"> </span>add<span class="w"> </span>changed-files
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Implement login form&quot;</span>
+
+<span class="c1"># Continue development with multiple commits</span>
+git<span class="w"> </span>add<span class="w"> </span>more-files
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add password validation&quot;</span>
+</code></pre></div>
+<p><strong>Push feature branch to remote:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>feature/user-authentication
+</code></pre></div>
+<p><strong>Create pull request</strong> (via GitHub/GitLab/etc.)</p>
+<p><strong>Review and merge:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># After approval, merge to main </span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+git<span class="w"> </span>merge<span class="w"> </span>feature/user-authentication
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="c1"># Or use the platform&#39;s merge button</span>
+</code></pre></div>
+<p><strong>Cleanup:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Delete the local branch</span>
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/user-authentication
+
+<span class="c1"># Delete the remote branch</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span>feature/user-authentication
+</code></pre></div>
+<h3 id="branch-naming-conventions">Branch Naming Conventions<a class="headerlink" href="#branch-naming-conventions" title="Permanent link">&para;</a></h3>
+<p>Consistent branch naming improves workflow clarity:</p>
+<div class="highlight"><pre><span></span><code>&lt;type&gt;/&lt;description&gt;
+</code></pre></div>
+<p>Common types:</p>
+<ul>
+<li><code>feature/</code> - New functionality</li>
+<li><code>bugfix/</code> - Bug fixes</li>
+<li><code>hotfix/</code> - Critical fixes for production</li>
+<li><code>release/</code> - Release preparation</li>
+<li><code>refactor/</code> - Code improvements without feature changes</li>
+<li><code>docs/</code> - Documentation changes</li>
+<li><code>test/</code> - Test additions or corrections</li>
+</ul>
+<p>Examples:</p>
+<ul>
+<li><code>feature/user-authentication</code></li>
+<li><code>bugfix/login-validation</code></li>
+<li><code>hotfix/security-vulnerability</code></li>
+<li><code>release/v1.2.0</code></li>
+</ul>
+<h3 id="pull-request-process">Pull Request Process<a class="headerlink" href="#pull-request-process" title="Permanent link">&para;</a></h3>
+<p>A typical pull request workflow:</p>
+<ol>
+<li>Developer creates PR with description of changes</li>
+<li>CI runs automated tests</li>
+<li>Team members review code and provide feedback</li>
+<li>Developer addresses feedback with follow-up commits</li>
+<li>PR is approved by required reviewers</li>
+<li>PR is merged (merge, squash, or rebase)</li>
+</ol>
+<h3 id="code-review-guidelines">Code Review Guidelines<a class="headerlink" href="#code-review-guidelines" title="Permanent link">&para;</a></h3>
+<p>Effective code reviews focus on:</p>
+<ul>
+<li>Code correctness and edge cases</li>
+<li>Test coverage</li>
+<li>Performance implications</li>
+<li>Security considerations</li>
+<li>Adherence to project style and standards</li>
+<li>Documentation completeness</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Aim for small, focused PRs to make reviews more manageable and effective.</p>
+</blockquote>
+<hr />
+<h2 id="gitflow-workflow">🌴 Gitflow Workflow<a class="headerlink" href="#gitflow-workflow" title="Permanent link">&para;</a></h2>
+<h3 id="overview-and-use-cases-for-gitflow-workflow">Overview and Use Cases for Gitflow Workflow<a class="headerlink" href="#overview-and-use-cases-for-gitflow-workflow" title="Permanent link">&para;</a></h3>
+<p>Gitflow is a robust framework for managing larger projects with scheduled releases. It uses dedicated branches for features, releases, and hotfixes with strict conventions about how changes flow between them.</p>
+<p><strong>Best suited for:</strong></p>
+<ul>
+<li>Larger teams with formal release processes</li>
+<li>Projects with multiple versions in production</li>
+<li>Software with scheduled release cycles</li>
+</ul>
+<p><strong>Visual representation:</strong></p>
+<div class="highlight"><pre><span></span><code>         hotfix/1.0.1
+            |
+            v
+main:     A-------M------P------T
+           \       \      \      \
+develop:    B---C---N---O--Q---R--U
+                /         /\
+feature/1:    D---E---F--/  \
+                           \  \
+feature/2:                 G---H
+                              \
+release/1.0:                  I---J---K
+</code></pre></div>
+<h3 id="branch-types-and-purposes">Branch Types and Purposes<a class="headerlink" href="#branch-types-and-purposes" title="Permanent link">&para;</a></h3>
+<p>Gitflow defines specific branches with different roles:</p>
+<table>
+<thead>
+<tr>
+<th>Branch Type</th>
+<th>Base Branch</th>
+<th>Naming</th>
+<th>Merges Into</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>main</code></td>
+<td>-</td>
+<td><code>main</code></td>
+<td>-</td>
+<td>Production-ready code</td>
+</tr>
+<tr>
+<td><code>develop</code></td>
+<td><code>main</code></td>
+<td><code>develop</code></td>
+<td>-</td>
+<td>Integration branch for features</td>
+</tr>
+<tr>
+<td><code>feature</code></td>
+<td><code>develop</code></td>
+<td><code>feature/*</code></td>
+<td><code>develop</code></td>
+<td>New functionality development</td>
+</tr>
+<tr>
+<td><code>release</code></td>
+<td><code>develop</code></td>
+<td><code>release/*</code></td>
+<td><code>main</code> &amp; <code>develop</code></td>
+<td>Release preparation &amp; stabilization</td>
+</tr>
+<tr>
+<td><code>hotfix</code></td>
+<td><code>main</code></td>
+<td><code>hotfix/*</code></td>
+<td><code>main</code> &amp; <code>develop</code></td>
+<td>Emergency production fixes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="implementation-steps-for-gitflow-workflow">Implementation Steps for Gitflow Workflow<a class="headerlink" href="#implementation-steps-for-gitflow-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Setup Gitflow:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Initialize repository with Gitflow</span>
+git<span class="w"> </span>flow<span class="w"> </span>init<span class="w"> </span>-d
+
+<span class="c1"># Or manually create required branches</span>
+git<span class="w"> </span>branch<span class="w"> </span>develop
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>develop
+</code></pre></div>
+<p><strong>Start a feature:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using gitflow extension</span>
+git<span class="w"> </span>flow<span class="w"> </span>feature<span class="w"> </span>start<span class="w"> </span>user-authentication
+
+<span class="c1"># Or manually</span>
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/user-authentication
+</code></pre></div>
+<p><strong>Finish a feature:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using gitflow extension</span>
+git<span class="w"> </span>flow<span class="w"> </span>feature<span class="w"> </span>finish<span class="w"> </span>user-authentication
+
+<span class="c1"># Or manually</span>
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>--no-ff<span class="w"> </span>feature/user-authentication
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>feature/user-authentication
+</code></pre></div>
+<p><strong>Start a release:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using gitflow extension</span>
+git<span class="w"> </span>flow<span class="w"> </span>release<span class="w"> </span>start<span class="w"> </span><span class="m">1</span>.2.0
+
+<span class="c1"># Or manually</span>
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>release/1.2.0
+</code></pre></div>
+<p><strong>Finish a release:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using gitflow extension</span>
+git<span class="w"> </span>flow<span class="w"> </span>release<span class="w"> </span>finish<span class="w"> </span><span class="m">1</span>.2.0
+
+<span class="c1"># Or manually</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>merge<span class="w"> </span>--no-ff<span class="w"> </span>release/1.2.0
+git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.2.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Version 1.2.0&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>--no-ff<span class="w"> </span>release/1.2.0
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>release/1.2.0
+</code></pre></div>
+<p><strong>Create and finish a hotfix:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Using gitflow extension</span>
+git<span class="w"> </span>flow<span class="w"> </span>hotfix<span class="w"> </span>start<span class="w"> </span><span class="m">1</span>.2.1
+
+<span class="c1"># Or manually</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>hotfix/1.2.1
+
+<span class="c1"># When finished with gitflow</span>
+git<span class="w"> </span>flow<span class="w"> </span>hotfix<span class="w"> </span>finish<span class="w"> </span><span class="m">1</span>.2.1
+
+<span class="c1"># Or manually</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>merge<span class="w"> </span>--no-ff<span class="w"> </span>hotfix/1.2.1
+git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.2.1<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Version 1.2.1&quot;</span>
+git<span class="w"> </span>checkout<span class="w"> </span>develop
+git<span class="w"> </span>merge<span class="w"> </span>--no-ff<span class="w"> </span>hotfix/1.2.1
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>hotfix/1.2.1
+</code></pre></div>
+<h3 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h3>
+<p>The release process in Gitflow:</p>
+<ol>
+<li>Create a release branch from <code>develop</code></li>
+<li>Make release-specific changes (version numbers, etc.)</li>
+<li>Bug fixes for the release go directly to release branch</li>
+<li>When stable, merge into <code>main</code> and tag with version number</li>
+<li>Also merge back into <code>develop</code> to incorporate release fixes</li>
+<li>Delete the release branch</li>
+</ol>
+<h3 id="hotfix-process">Hotfix Process<a class="headerlink" href="#hotfix-process" title="Permanent link">&para;</a></h3>
+<p>The hotfix process in Gitflow:</p>
+<ol>
+<li>Create hotfix branch from <code>main</code></li>
+<li>Fix the critical issue</li>
+<li>Merge into both <code>main</code> and <code>develop</code> (or active release branch)</li>
+<li>Tag the <code>main</code> merge with updated version number</li>
+<li>Delete the hotfix branch</li>
+</ol>
+<h3 id="gitflow-tools-and-extensions">GitFlow Tools and Extensions<a class="headerlink" href="#gitflow-tools-and-extensions" title="Permanent link">&para;</a></h3>
+<p>The Gitflow workflow can be implemented manually or using dedicated tools:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install the gitflow extension</span>
+<span class="c1"># macOS</span>
+brew<span class="w"> </span>install<span class="w"> </span>git-flow-avh
+
+<span class="c1"># Windows (with Git for Windows)</span>
+<span class="c1"># Already included</span>
+
+<span class="c1"># Linux</span>
+apt-get<span class="w"> </span>install<span class="w"> </span>git-flow
+</code></pre></div>
+<p>Common gitflow commands:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>flow<span class="w"> </span>init<span class="w">                 </span><span class="c1"># Set up repo for gitflow</span>
+git<span class="w"> </span>flow<span class="w"> </span>feature<span class="w"> </span>start<span class="w">        </span><span class="c1"># Start a feature branch</span>
+git<span class="w"> </span>flow<span class="w"> </span>feature<span class="w"> </span>finish<span class="w">       </span><span class="c1"># Finish a feature branch</span>
+git<span class="w"> </span>flow<span class="w"> </span>release<span class="w"> </span>start<span class="w">        </span><span class="c1"># Start a release branch</span>
+git<span class="w"> </span>flow<span class="w"> </span>release<span class="w"> </span>finish<span class="w">       </span><span class="c1"># Finish a release branch</span>
+git<span class="w"> </span>flow<span class="w"> </span>hotfix<span class="w"> </span>start<span class="w">         </span><span class="c1"># Start a hotfix branch</span>
+git<span class="w"> </span>flow<span class="w"> </span>hotfix<span class="w"> </span>finish<span class="w">        </span><span class="c1"># Finish a hotfix branch</span>
+</code></pre></div>
+<hr />
+<h2 id="forking-workflow">🍴 Forking Workflow<a class="headerlink" href="#forking-workflow" title="Permanent link">&para;</a></h2>
+<h3 id="overview-and-use-cases-for-forking-workflow">Overview and Use Cases for Forking Workflow<a class="headerlink" href="#overview-and-use-cases-for-forking-workflow" title="Permanent link">&para;</a></h3>
+<p>The Forking Workflow is unique in that each developer has their own server-side repository. This means every developer has two Git repositories: a private local one and a public server-side one.</p>
+<p><strong>Best suited for:</strong></p>
+<ul>
+<li>Open source projects</li>
+<li>Large public projects with many contributors</li>
+<li>Projects where contributors don't have write access to the main repository</li>
+</ul>
+<p><strong>Visual representation:</strong></p>
+<div class="highlight"><pre><span></span><code>upstream (main repo):    A---B---C-----------G
+                               \             /
+fork (your GH repo):           C---D---E---F
+                                \
+local (your computer):          C---D---E---F
+</code></pre></div>
+<h3 id="fork-and-clone-process">Fork and Clone Process<a class="headerlink" href="#fork-and-clone-process" title="Permanent link">&para;</a></h3>
+<p><strong>Fork the repository</strong> (via GitHub/GitLab interface)</p>
+<p><strong>Clone your fork:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-username/project.git
+<span class="nb">cd</span><span class="w"> </span>project
+</code></pre></div>
+<p><strong>Add upstream remote:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/original-owner/project.git
+</code></pre></div>
+<p><strong>Verify remotes:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>-v
+</code></pre></div>
+<h3 id="implementation-steps-for-forking-workflow">Implementation Steps for Forking Workflow<a class="headerlink" href="#implementation-steps-for-forking-workflow" title="Permanent link">&para;</a></h3>
+<p><strong>Create a feature branch:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/awesome-feature
+</code></pre></div>
+<p><strong>Make changes and commit:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Make changes</span>
+git<span class="w"> </span>add<span class="w"> </span>changed-files
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Implement awesome feature&quot;</span>
+</code></pre></div>
+<p><strong>Push to your fork:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>feature/awesome-feature
+</code></pre></div>
+<p><strong>Create pull request</strong> (via GitHub/GitLab interface)</p>
+<p><strong>Update your PR when requested:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Make changes based on feedback</span>
+git<span class="w"> </span>add<span class="w"> </span>changed-files
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Address review comments&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/awesome-feature
+</code></pre></div>
+<h3 id="synchronizing-with-upstream">Synchronizing with Upstream<a class="headerlink" href="#synchronizing-with-upstream" title="Permanent link">&para;</a></h3>
+<p>Keep your fork in sync with the upstream repository:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Fetch upstream changes</span>
+git<span class="w"> </span>fetch<span class="w"> </span>upstream
+
+<span class="c1"># Checkout your fork&#39;s main branch</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+
+<span class="c1"># Merge upstream changes</span>
+git<span class="w"> </span>merge<span class="w"> </span>upstream/main
+
+<span class="c1"># Update your fork on the server</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<h3 id="pull-request-process-for-forking-workflow">Pull Request Process for Forking Workflow<a class="headerlink" href="#pull-request-process-for-forking-workflow" title="Permanent link">&para;</a></h3>
+<p>The pull request process in a Forking Workflow typically involves:</p>
+<ol>
+<li>Developer pushes changes to their fork</li>
+<li>Developer creates PR from fork to upstream repository</li>
+<li>Maintainers review the code</li>
+<li>Developer makes requested changes on their branch</li>
+<li>Maintainers approve and merge the PR</li>
+<li>Developer syncs their fork with upstream</li>
+</ol>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Before creating a new PR, always sync your fork with the upstream repository to avoid conflicts.</p>
+</blockquote>
+<hr />
+<h2 id="trunk-based-development">🔃 Trunk-Based Development<a class="headerlink" href="#trunk-based-development" title="Permanent link">&para;</a></h2>
+<h3 id="overview-and-use-cases-for-trunk-based-development">Overview and Use Cases for Trunk-Based Development<a class="headerlink" href="#overview-and-use-cases-for-trunk-based-development" title="Permanent link">&para;</a></h3>
+<p>Trunk-Based Development is a source-control practice where developers merge small, frequent updates to a core "trunk" branch (usually <code>main</code>). It emphasizes keeping the trunk always releasable and using feature toggles instead of feature branches.</p>
+<p><strong>Best suited for:</strong></p>
+<ul>
+<li>DevOps-oriented teams with strong CI/CD practices</li>
+<li>Teams practicing continuous deployment</li>
+<li>Organizations focused on reducing integration friction</li>
+</ul>
+<p><strong>Visual representation:</strong></p>
+<div class="highlight"><pre><span></span><code>main: A---B---C---D---E---F---G---H---I
+      ↑   ↑   ↑   ↑   ↑   ↑   ↑   ↑   ↑
+     commits merged multiple times daily
+</code></pre></div>
+<h3 id="implementation-steps-for-trunk-based-development">Implementation Steps for Trunk-Based Development<a class="headerlink" href="#implementation-steps-for-trunk-based-development" title="Permanent link">&para;</a></h3>
+<p><strong>Pull latest trunk:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<p><strong>Create short-lived feature branch (optional):</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>small-feature
+</code></pre></div>
+<p><strong>Make small, incremental changes:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Make changes</span>
+git<span class="w"> </span>add<span class="w"> </span>changed-files
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Implement small part of feature&quot;</span>
+</code></pre></div>
+<p><strong>Integrate frequently (at least once daily):</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+git<span class="w"> </span>merge<span class="w"> </span>small-feature
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+
+<span class="c1"># If using feature branch</span>
+git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>small-feature
+</code></pre></div>
+<h3 id="feature-toggles">Feature Toggles<a class="headerlink" href="#feature-toggles" title="Permanent link">&para;</a></h3>
+<p>Instead of long-lived branches, Trunk-Based Development uses feature toggles:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Example feature toggle in code</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">FeatureFlags</span><span class="p">.</span><span class="na">isEnabled</span><span class="p">(</span><span class="s">&quot;new-billing-system&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// New implementation</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">newBillingSystem</span><span class="p">.</span><span class="na">calculateTotal</span><span class="p">(</span><span class="n">items</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Old implementation</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">oldBillingSystem</span><span class="p">.</span><span class="na">calculateTotal</span><span class="p">(</span><span class="n">items</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Types of feature toggles:</p>
+<ul>
+<li>Release toggles (enable/disable functionality)</li>
+<li>Experiment toggles (A/B testing)</li>
+<li>Ops toggles (control operational aspects)</li>
+<li>Permission toggles (user-specific features)</li>
+</ul>
+<h3 id="cicd-integration">CI/CD Integration<a class="headerlink" href="#cicd-integration" title="Permanent link">&para;</a></h3>
+<p>Trunk-Based Development relies heavily on automated testing:</p>
+<ol>
+<li>Every commit triggers a CI build</li>
+<li>Automated test suite runs on each build</li>
+<li>Build breaks are fixed immediately (highest priority)</li>
+<li>Passing builds can be auto-deployed to staging environments</li>
+</ol>
+<h3 id="comparison-with-feature-branches">Comparison with Feature Branches<a class="headerlink" href="#comparison-with-feature-branches" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Trunk-Based Development</th>
+<th>Feature Branches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Integration Frequency</td>
+<td>Continuous (multiple times daily)</td>
+<td>At feature completion</td>
+</tr>
+<tr>
+<td>Branch Lifetime</td>
+<td>Hours to a day</td>
+<td>Days to weeks</td>
+</tr>
+<tr>
+<td>Merge Conflicts</td>
+<td>Minimal due to frequent merges</td>
+<td>Can be significant</td>
+</tr>
+<tr>
+<td>Code Review</td>
+<td>Often post-merge, or pair programming</td>
+<td>Pre-merge via PRs</td>
+</tr>
+<tr>
+<td>Feature Isolation</td>
+<td>Via feature toggles in code</td>
+<td>Via branches</td>
+</tr>
+<tr>
+<td>Release Cadence</td>
+<td>Continuous</td>
+<td>Batch</td>
+</tr>
+<tr>
+<td>CI/CD Integration</td>
+<td>Essential</td>
+<td>Helpful but not required</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="github-flow">⚛️ GitHub Flow<a class="headerlink" href="#github-flow" title="Permanent link">&para;</a></h2>
+<h3 id="overview-and-use-cases-for-github-flow">Overview and Use Cases for GitHub Flow<a class="headerlink" href="#overview-and-use-cases-for-github-flow" title="Permanent link">&para;</a></h3>
+<p>GitHub Flow is a lightweight, branch-based workflow built around core GitHub features. It's simpler than Gitflow, focusing on frequent deployment and rapid feedback.</p>
+<p><strong>Best suited for:</strong></p>
+<ul>
+<li>Web applications with continuous deployment</li>
+<li>Teams using GitHub exclusively</li>
+<li>Projects with simple release requirements</li>
+<li>Teams wanting minimal process overhead</li>
+</ul>
+<p><strong>Visual representation:</strong></p>
+<div class="highlight"><pre><span></span><code>main:    A---B---C---D------F---G
+                     \     /
+feature:              E---/
+</code></pre></div>
+<h3 id="implementation-steps-for-github-flow">Implementation Steps for GitHub Flow<a class="headerlink" href="#implementation-steps-for-github-flow" title="Permanent link">&para;</a></h3>
+<p><strong>Create a branch:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>descriptive-branch-name
+</code></pre></div>
+<p><strong>Add commits:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Make changes</span>
+git<span class="w"> </span>add<span class="w"> </span>changed-files
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Clear description of changes&quot;</span>
+
+<span class="c1"># Continue making changes</span>
+git<span class="w"> </span>add<span class="w"> </span>more-files
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;More changes&quot;</span>
+</code></pre></div>
+<p><strong>Open a Pull Request:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>descriptive-branch-name
+</code></pre></div>
+<p>Then create PR via GitHub interface</p>
+<ol>
+<li><strong>Discuss and review:</strong></li>
+<li>Team members review code and provide feedback</li>
+<li>CI runs tests automatically</li>
+<li>
+<p>Make additional commits to address feedback</p>
+</li>
+<li>
+<p><strong>Deploy and test:</strong></p>
+</li>
+<li>Deploy branch to staging/test environment</li>
+<li>
+<p>Verify functionality in a production-like environment</p>
+</li>
+<li>
+<p><strong>Merge to main:</strong></p>
+</li>
+<li>Use GitHub's "Merge Pull Request" button</li>
+<li>Delete the branch after merging</li>
+</ol>
+<h3 id="deployment-process">Deployment Process<a class="headerlink" href="#deployment-process" title="Permanent link">&para;</a></h3>
+<p>GitHub Flow assumes continuous deployment:</p>
+<ol>
+<li>Merged changes to <code>main</code> trigger automatic deployment</li>
+<li>Deployments can be to staging first, then production</li>
+<li>Any issues found are fixed in a new branch</li>
+<li>Focus on quick fixes rather than reverting</li>
+</ol>
+<h3 id="comparison-with-gitflow">Comparison with GitFlow<a class="headerlink" href="#comparison-with-gitflow" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>GitHub Flow</th>
+<th>GitFlow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Complexity</td>
+<td>Simple</td>
+<td>Complex</td>
+</tr>
+<tr>
+<td>Branches</td>
+<td>One primary (main) + feature branches</td>
+<td>Multiple permanent branches + feature/release/hotfix branches</td>
+</tr>
+<tr>
+<td>Release Cycle</td>
+<td>Continuous</td>
+<td>Scheduled</td>
+</tr>
+<tr>
+<td>Ideal For</td>
+<td>Web apps, continuous deployment</td>
+<td>Versioned software</td>
+</tr>
+<tr>
+<td>Production Branch</td>
+<td><code>main</code></td>
+<td><code>main</code> and release branches</td>
+</tr>
+<tr>
+<td>Integration</td>
+<td>Feature branches merge directly to main</td>
+<td>Feature branches merge to develop</td>
+</tr>
+<tr>
+<td>Multiple Versions</td>
+<td>Not supported</td>
+<td>Supported</td>
+</tr>
+<tr>
+<td>Learning Curve</td>
+<td>Low</td>
+<td>Moderate</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="gitlab-flow">🔁 GitLab Flow<a class="headerlink" href="#gitlab-flow" title="Permanent link">&para;</a></h2>
+<h3 id="overview-and-use-cases-for-gitlab-flow">Overview and Use Cases for GitLab Flow<a class="headerlink" href="#overview-and-use-cases-for-gitlab-flow" title="Permanent link">&para;</a></h3>
+<p>GitLab Flow combines feature-driven development with issue tracking. It extends GitHub Flow with environment branches and optional release branches.</p>
+<p><strong>Best suited for:</strong></p>
+<ul>
+<li>Teams using GitLab or similar platforms</li>
+<li>Projects requiring staged deployments</li>
+<li>Projects that need both continuous delivery and versioned releases</li>
+</ul>
+<p><strong>Visual representation:</strong></p>
+<div class="highlight"><pre><span></span><code>production: ------------A------------------B--
+                       /                  /
+main:       C---D---E---F---G---H---I---J---K---L
+                     \             \
+feature:              M---N---------O
+</code></pre></div>
+<h3 id="environment-branches">Environment Branches<a class="headerlink" href="#environment-branches" title="Permanent link">&para;</a></h3>
+<p>GitLab Flow uses environment branches as promotion stages:</p>
+<div class="highlight"><pre><span></span><code>feature → main → pre-production → production
+</code></pre></div>
+<p>For projects requiring versioned releases:</p>
+<div class="highlight"><pre><span></span><code>feature → main → release-1.0 → release-1.1
+</code></pre></div>
+<h3 id="implementation-steps-for-gitlab-flow">Implementation Steps for GitLab Flow<a class="headerlink" href="#implementation-steps-for-gitlab-flow" title="Permanent link">&para;</a></h3>
+<p><strong>Create a feature branch:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span><span class="m">123</span>-fix-login-issue
+</code></pre></div>
+<p><strong>Make changes and commit:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Make changes</span>
+git<span class="w"> </span>add<span class="w"> </span>changed-files
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Fix login timeout issue #123&quot;</span>
+</code></pre></div>
+<p><strong>Push branch and create merge request:</strong></p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span><span class="m">123</span>-fix-login-issue
+</code></pre></div>
+<p>Then create merge request via GitLab interface</p>
+<ol>
+<li><strong>Merge to main after approval:</strong></li>
+<li>Use GitLab's merge button</li>
+<li>
+<p>Main branch is automatically deployed to staging environment</p>
+</li>
+<li>
+<p><strong>Promote to production:</strong></p>
+</li>
+</ol>
+<p>Either:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For environment branches approach</span>
+git<span class="w"> </span>checkout<span class="w"> </span>production
+git<span class="w"> </span>merge<span class="w"> </span>main
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>production
+</code></pre></div>
+<p>Or:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For release branches approach</span>
+git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>release-1.0
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>release-1.0
+</code></pre></div>
+<h3 id="release-management-for-gitlab-flow">Release Management for GitLab Flow<a class="headerlink" href="#release-management-for-gitlab-flow" title="Permanent link">&para;</a></h3>
+<p>GitLab Flow offers two release strategies:</p>
+<ol>
+<li><strong>Environment branches:</strong></li>
+<li>Production branch represents production environment</li>
+<li>Changes flow from main → pre-prod → production</li>
+<li>
+<p>Ideal for continuous deployment with verification stages</p>
+</li>
+<li>
+<p><strong>Release branches:</strong></p>
+</li>
+<li>Each release has a dedicated long-lived branch</li>
+<li>Only bug fixes are merged into release branches</li>
+<li>Ideal for software that needs multiple supported versions</li>
+</ol>
+<hr />
+<h2 id="comparing-workflows">📊 Comparing Workflows<a class="headerlink" href="#comparing-workflows" title="Permanent link">&para;</a></h2>
+<h3 id="workflow-comparison-table">Workflow Comparison Table<a class="headerlink" href="#workflow-comparison-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Workflow</th>
+<th>Complexity</th>
+<th>Branch Types</th>
+<th>Best For</th>
+<th>Release Cadence</th>
+<th>Learning Curve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Centralized</td>
+<td>Low</td>
+<td>Single (main)</td>
+<td>Small teams, simple projects</td>
+<td>As needed</td>
+<td>Very Low</td>
+</tr>
+<tr>
+<td>Feature Branch</td>
+<td>Low</td>
+<td>Main + feature branches</td>
+<td>Most teams</td>
+<td>As needed</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>Gitflow</td>
+<td>High</td>
+<td>Main, develop, feature, release, hotfix</td>
+<td>Complex, versioned projects</td>
+<td>Scheduled</td>
+<td>High</td>
+</tr>
+<tr>
+<td>Forking</td>
+<td>Medium</td>
+<td>Same as underlying workflow + fork</td>
+<td>Open source, public projects</td>
+<td>Varies</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>Trunk-Based</td>
+<td>Low</td>
+<td>Main + short-lived feature</td>
+<td>CI/CD, DevOps teams</td>
+<td>Continuous</td>
+<td>Medium (technical practices)</td>
+</tr>
+<tr>
+<td>GitHub Flow</td>
+<td>Low</td>
+<td>Main + feature branches</td>
+<td>Web apps, continuous deployment</td>
+<td>Continuous</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>GitLab Flow</td>
+<td>Medium</td>
+<td>Main, environment/release + feature</td>
+<td>Staged deployment</td>
+<td>Continuous or scheduled</td>
+<td>Medium</td>
+</tr>
+</tbody>
+</table>
+<h3 id="selecting-a-workflow">Selecting a Workflow<a class="headerlink" href="#selecting-a-workflow" title="Permanent link">&para;</a></h3>
+<p>Consider these factors when choosing a workflow:</p>
+<ol>
+<li><strong>Team size and geographical distribution</strong></li>
+<li><strong>Release frequency and versioning requirements</strong></li>
+<li><strong>Project complexity and codebase size</strong></li>
+<li><strong>Contributor expertise and Git familiarity</strong></li>
+<li><strong>Integration with CI/CD and deployment processes</strong></li>
+<li><strong>Need for multiple supported versions</strong></li>
+</ol>
+<h3 id="customizing-workflows">Customizing Workflows<a class="headerlink" href="#customizing-workflows" title="Permanent link">&para;</a></h3>
+<p>Most teams adapt standard workflows to their needs:</p>
+<ul>
+<li>Combining elements from different workflows</li>
+<li>Adapting branch naming and management</li>
+<li>Integrating with organization-specific tooling</li>
+<li>Evolving the workflow as team needs change</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Tip</strong>: Document your workflow and keep the documentation updated as your process evolves.</p>
+</blockquote>
+<hr />
+<h2 id="integrating-with-development-practices">🧩 Integrating with Development Practices<a class="headerlink" href="#integrating-with-development-practices" title="Permanent link">&para;</a></h2>
+<h3 id="continuous-integration-ci">Continuous Integration (CI)<a class="headerlink" href="#continuous-integration-ci" title="Permanent link">&para;</a></h3>
+<p>Effective Git workflows integrate with CI systems:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Example GitHub Actions workflow</span>
+<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build and Test</span>
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">main</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">develop</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">pull_request</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">main</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">develop</span><span class="w"> </span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up environment</span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm install</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm test</span>
+</code></pre></div>
+<p>Key CI best practices:</p>
+<ul>
+<li>Build and test on every commit</li>
+<li>Run the same CI process for branches and PRs</li>
+<li>Keep build times fast to enable frequent integration</li>
+<li>Prioritize fixing broken builds</li>
+</ul>
+<h3 id="code-review-strategies">Code Review Strategies<a class="headerlink" href="#code-review-strategies" title="Permanent link">&para;</a></h3>
+<p>Effective code reviews depend on the workflow:</p>
+<ul>
+<li><strong>Pre-merge reviews</strong>: Used in Feature Branch, GitHub Flow, GitLab Flow</li>
+<li><strong>Post-merge reviews</strong>: Sometimes used in Trunk-Based Development</li>
+<li><strong>Pair programming</strong>: Can replace formal reviews in some teams</li>
+</ul>
+<p>Review best practices:</p>
+<ul>
+<li>Focus on small, focused changes</li>
+<li>Use automated tools for style and basic errors</li>
+<li>Review for design, maintainability, and correctness</li>
+<li>Build review into the workflow rather than as an afterthought</li>
+</ul>
+<h3 id="release-management">Release Management<a class="headerlink" href="#release-management" title="Permanent link">&para;</a></h3>
+<p>Different workflows approach releases differently:</p>
+<ul>
+<li><strong>Continuous deployment</strong>: Changes in main go directly to production</li>
+<li><strong>Environment promotion</strong>: Changes move through staging environments</li>
+<li><strong>Release branches</strong>: Changes are batched into scheduled releases</li>
+<li><strong>Tags and versions</strong>: Specific commits are tagged for release</li>
+</ul>
+<p>Release notes automation:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate changelog from commits</span>
+git<span class="w"> </span>log<span class="w"> </span>--pretty<span class="o">=</span>format:<span class="s2">&quot;%h - %s (%an)&quot;</span><span class="w"> </span>v1.0.0..v1.1.0<span class="w"> </span>&gt;<span class="w"> </span>CHANGELOG.md
+</code></pre></div>
+<h3 id="documentation-practices">Documentation Practices<a class="headerlink" href="#documentation-practices" title="Permanent link">&para;</a></h3>
+<p>Document your Git workflow:</p>
+<ul>
+<li>Branch naming conventions and purposes</li>
+<li>Commit message format and expectations</li>
+<li>PR/MR templates and requirements</li>
+<li>Release procedures and checklists</li>
+<li>Responsibility matrix for merge approvals</li>
+<li>Handling of critical fixes</li>
+</ul>
+<p>Example PR template:</p>
+<div class="highlight"><pre><span></span><code><span class="gu">## Description</span>
+[Description of the changes]
+
+<span class="gu">## Issue</span>
+Closes <span class="ni">#123</span>
+
+<span class="gu">## Type of change</span>
+<span class="k">- [ ]</span> Bug fix
+<span class="k">- [ ]</span> New feature
+<span class="k">- [ ]</span> Breaking change
+<span class="k">- [ ]</span> Documentation update
+
+<span class="gu">## Checklist</span>
+<span class="k">- [ ]</span> Tests added/updated
+<span class="k">- [ ]</span> Documentation updated
+<span class="k">- [ ]</span> CI tests passing
+</code></pre></div>
+<hr />
+<h2 id="command-summary">💻 Command Summary<a class="headerlink" href="#command-summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create Feature Branch</td>
+<td><code>git checkout -b feature/name</code></td>
+<td>Start new feature</td>
+</tr>
+<tr>
+<td>Push New Branch</td>
+<td><code>git push -u origin feature/name</code></td>
+<td>Push branch to remote</td>
+</tr>
+<tr>
+<td>Track Upstream</td>
+<td><code>git remote add upstream &lt;url&gt;</code></td>
+<td>Add original repo as upstream</td>
+</tr>
+<tr>
+<td>Sync with Upstream</td>
+<td><code>git fetch upstream &amp;&amp; git merge upstream/main</code></td>
+<td>Update fork from original</td>
+</tr>
+<tr>
+<td>Start GitFlow Feature</td>
+<td><code>git flow feature start &lt;name&gt;</code></td>
+<td>Begin new feature using GitFlow</td>
+</tr>
+<tr>
+<td>Finish GitFlow Feature</td>
+<td><code>git flow feature finish &lt;name&gt;</code></td>
+<td>Complete feature using GitFlow</td>
+</tr>
+<tr>
+<td>Start Release</td>
+<td><code>git flow release start &lt;version&gt;</code></td>
+<td>Begin new release using GitFlow</td>
+</tr>
+<tr>
+<td>Finish Release</td>
+<td><code>git flow release finish &lt;version&gt;</code></td>
+<td>Complete release using GitFlow</td>
+</tr>
+<tr>
+<td>Create Hotfix</td>
+<td><code>git flow hotfix start &lt;version&gt;</code></td>
+<td>Begin new hotfix using GitFlow</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="related-topics">🔗 Related Topics<a class="headerlink" href="#related-topics" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="03-branching.md">Creating, managing, and navigating branches</a></li>
+<li><a href="04-merging-rebasing.md">Combining branches with merge and rebase operations</a></li>
+<li><a href="05-remote-operations.md">Working with remote repositories</a></li>
+<li><a href="11-advanced-topics.md">Advanced Git techniques and features</a></li>
+<li><a href="13-github-actions.md">Automating tasks with GitHub Actions</a></li>
+</ul>
+<hr />
+<p><em>Next: <a href="13-github-actions.md">Automating tasks with GitHub Actions</a></em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "content.code.copy"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
