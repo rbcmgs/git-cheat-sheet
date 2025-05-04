@@ -1,0 +1,20 @@
+# This is a GitHub Actions workflow file for checking links in Markdown files using Lychee.
+name: Check Links
+
+on:
+  push:
+    paths:
+      - '**.md'
+  pull_request:
+    paths:
+      - '**.md'
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: lychee link checker
+        uses: lycheeverse/lychee-action@v1.9.0
+        with:
+          args: --verbose --no-progress '**/*.md'

@@ -1,0 +1,44 @@
+matrix:
+- name: Markdown
+  aspell:
+    lang: en
+    d: en_US
+  dictionary:
+    encoding: utf-8
+    wordlists:
+    - .github/wordlist.txt
+  pipeline:
+  - pyspelling.filters.markdown:
+      markdown_extensions:
+      - pymdownx.superfences
+      - pymdownx.highlight
+      - pymdownx.inlinehilite
+      - pymdownx.betterem
+      - pymdownx.caret
+      - pymdownx.tilde
+      - pymdownx.tabbed
+      - pymdownx.emoji
+      - pymdownx.tasklist
+      - markdown.extensions.tables
+      - markdown.extensions.footnotes
+      - markdown.extensions.attr_list
+  - pyspelling.filters.html:
+      comments: false
+      ignores:
+      - code
+      - pre
+      - a
+      - code
+      - kbd
+      - img
+      - script
+      - style
+      - pre
+      - var
+      - samp
+      - time
+  - pyspelling.filters.url:
+  sources:
+  - "docs/**/*.md"
+  - "*.md"
+  default_encoding: utf-8

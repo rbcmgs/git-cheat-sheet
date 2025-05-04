@@ -1,0 +1,143 @@
+site_name: Git Cheats
+site_description: A personal Git reference guide
+site_author: Robert Cummings
+site_url: https://git-cheats.cmgs.io
+repo_name: rbcmgs/git-cheats
+repo_url: https://github.com/rbcmgs/git-cheats
+edit_uri_template: 'blob/main/docs/{path}'
+
+theme:
+  name: material
+  language: en
+  palette:
+
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+  font:
+    text: Open Sans
+    code: JetBrains Mono
+  icon:
+    logo: material/git
+    repo: fontawesome/brands/github
+  features:
+    - navigation.top
+    - navigation.expand
+    - navigation.sections
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.indexes
+    - navigation.tracking
+    - navigation.footer
+    - navigation.search.highlight
+    - navigation.search.share
+    - navigation.search.suggest
+    - navigation.search.suggest.auto
+    - navigation.search.suggest.delay: 300ms
+    - navigation.search.suggest.min_length: 2
+    - navigation.search.suggest.max_results: 10
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - content.footnote.tooltips
+
+markdown_extensions:
+  - attr_list
+  - admonition
+  - def_list
+  - footnotes
+  - md_in_html
+  - pymdownx.blocks.caption
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.emoji
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid2
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.snippets
+  - pymdownx.tilde
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - tags
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+  - mermaid2:
+      arguments:
+        securityLevel: 'loose'
+        theme: base
+
+extra:
+  analytics:
+    provider: google
+    property: G-MEASUREMENT_ID  # Replace with your actual Google Analytics ID when needed
+
+extra_css:
+  - stylesheets/custom.css
+
+extra_javascript:
+  - scripts/load-mermaid.js
+
+nav:
+  - Quick Reference: index.md
+  - Introduction: git-introduction.md
+  - Setup and Init: setup-and-init.md
+  - Basic Usage: basic-usage.md
+  - Branching: branching.md
+  - Merging & Rebasing: merging-rebasing.md
+  - Remote Operations: remote-operations.md
+  - Stash & Clean: stash-clean.md
+  - Tags & Releases: tags-releases.md
+  - Logs, Diffs & History: logs-diffs-history.md
+  - Config & Aliases: config-aliases.md
+  - Troubleshooting: troubleshooting.md
+  - Advanced Topics: advanced-topics.md
+  - Development Workflows: development-workflows.md
+  - GitHub Actions: github-actions.md
+  - Other Resources: resources.md
+
+copyright: Copyright &copy; 2025 Robert B. Cummings. All rights reserved.

@@ -1,0 +1,556 @@
+:root {
+    /* Set base hue for slate-blue tint */
+    --md-hue: 210; /* A subtle blue-slate hue */
+    
+    /* Base color palette from provided HSL values */
+    --color-gold: #ffcb5d;     /* hsl(40.59, 100%, 68.33%) */
+    --color-teal: #33FFB2;     /* hsl(-79.41, 100%, 68.33%) */
+    --color-blue: #77a3ff;     /* hsl(220.59, 100%, 73.33%) */
+    --color-coral: #FF7659;    /* hsl(10.59, 100%, 68.33%) */
+    --color-pink: #FF5977;     /* hsl(-19.41, 100%, 68.33%) */
+    --color-purple: #A75BFF;   /* hsl(270.59, 100%, 73.33%) */
+    
+    /* Derived colors - light variants */
+    --color-gold-light: #FFED8B; /* hsl(40.59, 100%, 85%) */
+    --color-teal-light: #66FFc9;
+    --color-blue-light: #A3CFFF; /* hsl(220.59, 100%, 85%) */
+    --color-coral-light: #FF9C85;
+    --color-pink-light: #FF85A1;
+    --color-purple-light: #D6A3FF; /* hsl(270.59, 100%, 85%) */
+    
+    /* Derived colors - dark variants */
+    --color-gold-dark: #CDAA3D; /* hsl(40.59, 100%, 45%) */
+    --color-teal-dark: #1DD995;
+    --color-blue-dark: #2A8BC2;
+    --color-coral-dark: #D14124;
+    --color-pink-dark: #D32F50;
+    --color-purple-dark: #7A2D9C; /* hsl(270.59, 100%, 45%) */
+    
+    /* Backgrounds and neutral colors with slate-blue tint */
+    --color-bg-light: hsla(var(--md-hue), 15%, 96%, 1);
+    --color-bg-light-alt: hsla(var(--md-hue), 15%, 92%, 1);
+    --color-text-dark: hsla(var(--md-hue), 15%, 20%, 1);
+    --color-text-light: #eeeeee;
+    --color-text-muted: hsla(var(--md-hue), 15%, 45%, 1);
+    
+    /* Header and footer darker color */
+    --color-header-footer: hsla(var(--md-hue), 15%, 9%, 1);
+    
+    /* Light mode theme variables */
+    --md-primary-fg-color: var(--color-header-footer);
+    --md-primary-fg-color--light: hsla(var(--md-hue), 15%, 15%, 1);
+    --md-primary-fg-color--dark: hsla(var(--md-hue), 15%, 5%, 1);
+    
+    --md-accent-fg-color: var(--color-blue);
+    --md-accent-fg-color--transparent: rgba(117, 185, 255, 0.1);
+    --md-accent-bg-color: var(--color-text-light);
+    --md-accent-bg-color--light: var(--color-text-light);
+
+    --md-default-bg-color: var(--color-bg-light);
+    --md-default-bg-color--light: var(--color-bg-light-alt);
+    
+    --md-typeset-color: var(--color-text-dark);
+    --md-typeset-a-color: var(--color-blue); /* Links now use blue */
+
+    /* Code blocks now use purple */
+    --md-code-bg-color-custom: rgba(167, 91, 255, 0.08) !important;
+    --md-code-fg-color-custom: var(--color-purple-dark) !important;
+
+    --md-admonition-fg-color: var(--color-text-dark);
+    --md-admonition-bg-color: rgba(255, 118, 89, 0.1);
+
+    /* Footer now uses dark header/footer color */
+    --md-footer-bg-color: var(--color-header-footer);
+    --md-footer-bg-color--dark: hsla(var(--md-hue), 15%, 7%, 1);
+    --md-footer-fg-color: var(--color-text-light);
+    --md-footer-fg-color--light: rgba(255, 255, 255, 0.7);
+    --md-footer-fg-color--lighter: rgba(255, 255, 255, 0.5);
+
+    --md-nav-bg-color: var(--color-bg-light);
+    --md-nav-fg-color: var(--color-text-dark);
+}
+
+[data-md-color-scheme="slate"] {
+    /* Dark mode theme variables */
+    --color-bg-dark: hsl(224, 15%, 14%)!important; /* Using requested formula */
+    --color-bg-dark-darker: hsla(var(--md-hue), 15%, 19%, 1);
+    --color-bg-dark-lighter: hsla(var(--md-hue), 15%, 25%, 1);
+    
+    --md-primary-fg-color: var(--color-header-footer);
+    --md-primary-fg-color--light: hsla(var(--md-hue), 15%, 15%, 1);
+    --md-primary-fg-color--dark: hsla(var(--md-hue), 15%, 5%, 1);
+    
+    --md-accent-fg-color: var(--color-blue-light);
+    --md-accent-fg-color--transparent: rgba(153, 205, 255, 0.1);
+    --md-accent-bg-color: var(--color-bg-dark);
+    
+    --md-default-bg-color: var(--color-bg-dark);
+    --md-default-bg-color--light: var(--color-bg-dark-darker);
+
+    --md-typeset-color: #EEEEEE;
+    --md-typeset-a-color: var(--color-blue-light); /* Links now use blue in dark mode */
+
+    /* Code blocks now use purple in dark mode */
+    --md-code-bg-color-custom: rgba(167, 91, 255, 0.15) !important;
+    --md-code-fg-color-custom: var(--color-purple-light) !important;
+
+    --md-footer-bg-color: var(--color-header-footer);
+    --md-footer-bg-color--dark: hsla(var(--md-hue), 15%, 5%, 1);
+    --md-footer-fg-color: #EEEEEE;
+    --md-footer-fg-color--light: rgba(255, 255, 255, 0.7);
+    --md-footer-fg-color--lighter: rgba(255, 255, 255, 0.5);
+
+    --md-nav-bg-color: var(--color-bg-dark);
+    --md-nav-fg-color: #EEEEEE;
+}
+
+/* Global styles */
+.md-grid {
+  max-width: 80rem;
+}
+
+/* Header styles */
+.md-header {
+    background-color: var(--md-primary-fg-color);
+    color: var(--color-text-light);
+}
+
+.md-header__button.md-logo {
+    color: var(--color-text-light);
+}
+
+.md-header__title {
+    color: var(--color-text-light);
+}
+
+.md-search__input {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--color-text-light);
+}
+
+/* Navigation */
+.md-nav__title {
+    color: var(--md-typeset-color);
+}
+
+.md-nav__link:focus, 
+.md-nav__link:hover {
+    color: var(--color-blue);
+}
+
+.md-nav__item .md-nav__link--active, .md-nav__item .md-nav__link--active code {
+    color: var(--color-blue);
+}
+
+/* Footer */
+.md-footer {
+    background-color: var(--md-primary-fg-color);
+    color: var(--color-text-light);
+}
+
+.md-footer-nav {
+    background-color: var(--md-primary-fg-color);
+}
+
+.md-footer-meta {
+    background-color: var(--md-primary-fg-color--dark);
+}
+
+.md-main__inner {
+  margin-top: 0.5rem;
+}
+
+.md-typeset h1 {
+  margin: 0 0 0.5em;
+}
+
+.md-typeset h2 {
+  margin: 0.5em 0 .64em;
+}
+
+/* Typography */
+.md-typeset h1, 
+.md-typeset h2,
+.md-typeset h3, 
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+    font-weight: 400;
+    color: var(--md-typeset-color); /* All headings same color as body text */
+}
+
+/* Admonitions - using our color palette */
+.md-typeset .admonition.note,
+.md-typeset details.note {
+    border-color: var(--color-blue);
+}
+
+.md-typeset .note > .admonition-title,
+.md-typeset .note > summary {
+    background-color: rgba(117, 185, 255, 0.15);
+    color: var(--color-blue);
+}
+
+.md-typeset .admonition.tip,
+.md-typeset details.tip {
+    border-color: var(--color-teal);
+}
+
+.md-typeset .tip > .admonition-title,
+.md-typeset .tip > summary {
+    background-color: rgba(51, 255, 178, 0.15);
+    color: var(--color-teal-dark);
+}
+
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+    border-color: var(--color-gold);
+}
+
+.md-typeset .warning > .admonition-title,
+.md-typeset .warning > summary {
+    background-color: rgba(255, 194, 51, 0.15);
+    color: var(--color-gold-dark);
+}
+
+.md-typeset .admonition.danger,
+.md-typeset details.danger {
+    border-color: var(--color-coral);
+}
+
+.md-typeset .danger > .admonition-title,
+.md-typeset .danger > summary {
+    background-color: rgba(255, 118, 89, 0.15);
+    color: var(--color-coral-dark);
+}
+
+/* Code blocks - enhanced specificity for proper color application */
+.md-typeset code, 
+.md-typeset pre code,
+.md-content code {
+    background-color: var(--md-code-bg-color-custom) !important;
+    color: var(--md-code-fg-color-custom) !important;
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    font-weight: 500;
+}
+
+/* Code blocks (multi-line) with increased specificity */
+.md-typeset pre:not(.mermaid2),
+.md-content pre:not(.mermaid2) {
+  background-color: var(--md-code-bg-color-custom) !important;
+  border-radius: 4px;
+  border-left: 4px solid var(--color-purple) !important;
+  margin: 1em 0;
+}
+
+.md-typeset pre > code,
+.md-content pre > code {
+    background-color: transparent !important;
+    padding: 1em;
+    border-left: none;
+    color: var(--md-code-fg-color-custom) !important;
+    font-weight: normal;
+}
+
+/* Handling specific syntax highlighting containers */
+.md-typeset .highlight pre,
+.md-typeset .highlighttable {
+    background-color: var(--md-code-bg-color-custom) !important;
+    color: var(--md-code-fg-color-custom) !important;
+}
+
+.md-typeset .highlight code,
+.md-typeset .highlighttable code {
+    color: var(--md-code-fg-color-custom) !important;
+}
+
+/* Line numbers */
+.highlighttable .linenos {
+    background-color: rgba(167, 91, 255, 0.2);
+    color: var(--md-code-fg-color-custom);
+    border-radius: 4px 0 0 4px;
+    padding: 0.5em;
+}
+
+/* Additional syntax highlighting overrides */
+[data-md-color-scheme="default"] .codehilite pre,
+[data-md-color-scheme="default"] .highlight pre {
+    background-color: var(--md-code-bg-color-custom) !important;
+    color: var(--md-code-fg-color-custom) !important;
+}
+
+/* Force material code highlighting to use our colors */
+[data-md-color-scheme="default"] .md-typeset .highlight .nb, 
+[data-md-color-scheme="default"] .md-typeset .highlight .nc, 
+[data-md-color-scheme="default"] .md-typeset .highlight .nd, 
+[data-md-color-scheme="default"] .md-typeset .highlight .ni, 
+[data-md-color-scheme="default"] .md-typeset .highlight .ne, 
+[data-md-color-scheme="default"] .md-typeset .highlight .nf, 
+[data-md-color-scheme="default"] .md-typeset .highlight .nl, 
+[data-md-color-scheme="default"] .md-typeset .highlight .nn {
+    color: var(--color-purple-dark) !important;
+}
+
+/* Adjust for inline code in admonitions */
+.md-typeset .admonition code,
+.md-typeset details code {
+    background-color: rgba(167, 91, 255, 0.15) !important;
+}
+
+/* Code highlighting enhancement */
+.highlight .hll {
+    background-color: rgba(167, 91, 255, 0.15);
+}
+
+/* Copy code button */
+.md-clipboard {
+    color: var(--color-purple);
+}
+
+.md-clipboard:hover {
+    color: var(--color-purple-dark);
+}
+
+[data-md-color-scheme="slate"] .md-clipboard:hover {
+    color: var(--color-purple-light);
+}
+
+/* Code annotations */
+.md-annotation__index {
+    background-color: var(--color-purple);
+    color: white;
+}
+
+/* Keyboard keys */
+.md-typeset kbd {
+    background-color: var(--md-code-bg-color-custom);
+    border: 1px solid var(--color-purple-light);
+    border-radius: 3px;
+    box-shadow: 0 1px 0 var(--color-purple-light);
+    color: var(--md-code-fg-color-custom);
+    padding: 0.15em 0.4em;
+}
+
+/* Tables */
+.md-typeset table:not([class]) {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.md-typeset table:not([class]) th {
+    font-weight: 600;
+    padding: 0.8em 1em;
+}
+
+.md-typeset table:not([class]) tr:nth-child(odd) {
+    background-color: var(--md-default-bg-color);
+}
+
+.md-typeset table:not([class]) tr:nth-child(even) {
+    background-color: var(--md-default-bg-color--light);
+}
+
+/* Buttons */
+.md-typeset .md-button {
+    background-color: var(--md-primary-fg-color);
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.md-typeset .md-button:hover {
+    background-color: var(--md-primary-fg-color--dark);
+    color: var(--color-text-light);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Tabs */
+.md-tabs {
+    background-color: var(--md-primary-fg-color--dark);
+    color: var(--color-text-light);
+}
+
+@supports selector(::-webkit-scrollbar) {
+  .md-sidebar__scrollwrap {
+      scrollbar-gutter: auto
+  }
+
+  [dir=ltr] .md-sidebar__inner {
+      padding-right: calc(100% - 16rem);
+  }
+
+  [dir=rtl] .md-sidebar__inner {
+      padding-left: calc(100% - 11.5rem)
+  }
+}
+
+.md-sidebar--secondary {
+  width: 16rem;
+}
+
+/* Link styling */
+.md-typeset a {
+    color: var(--color-blue);
+}
+
+/* Search results */
+.md-search-result__meta {
+    color: var(--color-text-muted);
+}
+
+.md-search-result__article--document .md-search-result__title {
+    color: var(--md-primary-fg-color--dark);
+}
+
+/* Progress bars */
+.progress-label {
+    color: var(--md-typeset-color);
+}
+
+.progress-bar {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.progress-30plus .progress-bar {
+    background-color: var(--color-gold);
+}
+
+.progress-60plus .progress-bar {
+    background-color: var(--color-teal);
+}
+
+.progress-100plus .progress-bar {
+    background-color: var(--color-blue);
+}
+
+/* Lists - styling bullets with gold color */
+.md-typeset ul li::before {
+    color: var(--color-gold) !important;
+}
+
+/* Style all unordered list markers */
+.md-typeset ul li::marker {
+    color: var(--color-gold) !important;
+}
+
+/* Style all ordered list markers */
+.md-typeset ol li::marker {
+    color: var(--color-gold) !important;
+}
+
+.md-typeset ol li span,
+.md-typeset ol li p {
+    color: var(--md-typeset-color);
+}
+
+/* Task lists */
+.md-typeset .task-list-control .task-list-indicator::before {
+    background-color: var(--color-gold) !important;
+}
+
+.md-typeset [type="checkbox"]:checked + .task-list-indicator::before {
+    background-color: var(--color-gold) !important;
+}
+
+@media screen and (min-width: 60em) {
+  .md-header__source {
+    max-width: 16rem;
+    width: 16rem;
+  }
+}
+
+/* Mermaid charts */
+
+.edgeLabel p {
+  color: var(--color-text-dark) !important;
+  padding: 0.2em 0.4em !important;
+}
+
+[data-md-color-scheme="slate"] .edgeLabel p {
+  color: var(--color-text-dark) !important;
+}
+
+.cluster rect {
+  fill: var(--color-bg-light) !important;
+  stroke: var(--color-text-dark) !important;
+  stroke-width: 1px !important;
+}
+
+[data-md-color-scheme="slate"] .cluster rect {
+  fill: var(--color-bg-dark-lighter) !important;
+  stroke: var(--color-text-light) !important;
+  stroke-width: 1px !important;
+}
+
+.cluster span {
+  color: var(--color-text-dark) !important;
+}
+
+[data-md-color-scheme="slate"] .cluster span {
+  color: var(--color-text-light) !important;
+}
+
+/* Mermaid diagram styling - using mid-tone gray for all lines and arrows */
+/* Base mid-tone gray that works in both light and dark modes */
+:root {
+  --mermaid-line-color: #777777;
+}
+
+/* Target all basic lines in mermaid diagrams */
+[id^="mermaid-"] line,
+[id^="mermaid-"] path:not(.node),
+[id^="mermaid-"] .messageLine0,
+[id^="mermaid-"] .messageLine1 {
+  stroke: var(--mermaid-line-color) !important;
+  stroke-width: 1.5px;
+}
+
+/* Flowchart specific arrows and lines */
+[id^="mermaid-"] .flowchart-link {
+  stroke: var(--mermaid-line-color) !important;
+  stroke-width: 1.5px;
+}
+
+/* Sequence diagram arrows */
+[id^="mermaid-"] marker {
+  fill: var(--mermaid-line-color) !important;
+  stroke: var(--mermaid-line-color) !important;
+}
+
+/* Message text and arrow labels */
+[id^="mermaid-"] .messageText,
+[id^="mermaid-"] .labelText,
+[id^="mermaid-"] .edgeLabel {
+  fill: var(--md-typeset-color) !important;
+  color: var(--md-typeset-color) !important;
+}
+
+/* Arrow markers and endpoints */
+[id^="mermaid-"] .marker,
+[id^="mermaid-"] .arrowheadPath,
+[id^="mermaid-"] .edgePath .path {
+  stroke: var(--mermaid-line-color) !important;
+  fill: var(--mermaid-line-color) !important;
+}
+
+/* Class diagram and ER diagram relationships */
+[id^="mermaid-"] .relationshipLabelBox,
+[id^="mermaid-"] .relationshipLine {
+  stroke: var(--mermaid-line-color) !important;
+}
+
+/* Gantt chart lines */
+[id^="mermaid-"] .grid .tick line {
+  stroke: var(--mermaid-line-color) !important;
+  opacity: 0.3;
+}
+
+/* State diagram transitions */
+[id^="mermaid-"] .transition {
+  stroke: var(--mermaid-line-color) !important;
+}

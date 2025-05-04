@@ -1,0 +1,106 @@
+# This workflow runs markdownlint on all markdown files in the repository.
+name: Markdown Lint
+
+on:
+  push:
+    paths:
+      - '**.md'
+  pull_request:
+    paths:
+      - '**.md'
+  # Allow manual triggering
+  workflow_dispatch:
+  # Run weekly to catch any new issues
+  schedule:
+    - cron: '0 0 * * 0'  # Every Sunday at midnight
+
+jobs:
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Cache markdownlint dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install markdownlint-cli2
+        run: npm install -g markdownlint-cli2
+      
+      - name: Run markdownlint and capture output
+        id: markdownlint
+        run: |
+          set +e
+          markdownlint_output=$(markdownlint-cli2 "**/*.md" 2>&1)
+          exit_code=$?
+          echo "$markdownlint_output" > markdownlint-output.txt
+          echo "MARKDOWNLINT_EXIT_CODE=$exit_code" >> $GITHUB_ENV
+          echo "exit_code=$exit_code" >> $GITHUB_OUTPUT
+      
+      - name: Read markdownlint output
+        id: read-output
+        if: env.MARKDOWNLINT_EXIT_CODE != '0'
+        run: |
+          echo "MARKDOWNLINT_ERRORS<<EOF" >> $GITHUB_ENV
+          cat markdownlint-output.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      
+      - name: Create GitHub Issue for Markdown Lint Errors
+        if: env.MARKDOWNLINT_EXIT_CODE != '0'
+        uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MARKDOWNLINT_ERRORS: ${{ env.MARKDOWNLINT_ERRORS }}
+        with:
+          filename: .github/ISSUE_TEMPLATE/markdown-lint-errors.md
+          update_existing: true
+          search_existing: open
+      
+      # New step to close markdown lint issues when no errors are found
+      - name: Close Markdown Lint Issues if No Errors
+        if: env.MARKDOWNLINT_EXIT_CODE == '0'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: ['documentation', 'formatting'],
+            });
+            
+            const markdownLintIssues = issues.data.filter(issue => 
+              issue.title.includes('Markdown Linting Errors')
+            );
+            
+            for (const issue of markdownLintIssues) {
+              console.log(`Closing issue #${issue.number}: ${issue.title}`);
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: '✅ All markdown linting errors have been fixed! Closing this issue automatically.'
+              });
+              
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+            }
+        
+      # Fail the workflow if markdownlint failed
+      - name: Check markdownlint result
+        if: env.MARKDOWNLINT_EXIT_CODE != '0' && github.event_name == 'pull_request'
+        run: exit 1
