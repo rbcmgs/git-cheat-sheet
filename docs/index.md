@@ -4,7 +4,7 @@
 
 Hand-crafted with ❤️ for rapid reference.
 
-Not intended as a replacement for the [official git documentation](https://git-scm.com/doc)
+Not intended as a replacement for the [official documentation](https://git-scm.com/doc)
 
 ---
 
